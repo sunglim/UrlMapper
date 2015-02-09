@@ -1,0 +1,13 @@
+name: url_mapper
+version: 0.0.1
+author: Sungguk Lim
+description: personal
+environment:
+  sdk: '>=1.4.0 <2.0.0'
+dependencies:
+  shelf: ">=0.5.7 <0.6.0"
+  dart-sqlite:
+    git: https://github.com/darshan-/dart-sqlite.git
+    version: any
+dev_dependencies:
+  unittest: '>=0.10.0 <0.12.0'
