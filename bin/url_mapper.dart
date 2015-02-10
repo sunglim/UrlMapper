@@ -31,7 +31,7 @@ shelf.Response _echoRequest(shelf.Request request) {
   final String resultPath = request.url.toString() == '/' ? '/index.html' : request.url.toString();
         final File file = new File('./${resultPath}');
         if (file.existsSync()) {
-          return new shelf.Response.ok(file.readAsStringSync());
+          return new shelf.Response.ok(file.openRead());
         };
        
   return new shelf.Response.ok('Request for "${request.url}"');
