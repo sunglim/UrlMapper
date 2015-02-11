@@ -36,6 +36,6 @@ Future<shelf.Response> _jsonRequest(shelf.Request request) {
       return new Future.value(new shelf.Response.ok(file.openRead(), headers: headers));
     };
 
-    return new Future.value(shelf.Response.ok('Not found "${request.url}"'));
+    return new Future.value(new shelf.Response.ok('Not found "${request.url}"'));
   }
 }
