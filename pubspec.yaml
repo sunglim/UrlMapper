@@ -6,7 +6,7 @@ environment:
   sdk: '>=1.4.0 <2.0.0'
 dependencies:
   sqlite:
-    git: https://github.com/sunglim/dart-async-sqlite.git
+    path: ./dart-async-sqlite/
   mime: any
   shelf: '>=0.5.7 <0.6.0'
   shelf_auth: '>=0.2.3+1 <0.3.0'
