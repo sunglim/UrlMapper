@@ -14,8 +14,6 @@ class Database {
     'CREATEUSER':           'INSERT INTO users (userName,password,points) values (?,?,NULL)',
     'GETUSER':              'SELECT userID,userName,points FROM users WHERE userID=?',
     'GETUSERS':             'SELECT * FROM ua_spoof',
-    'UPDATEUSERPOINTSNULL': 'UPDATE users SET points=NULL',
-    'UPDATEUSERPOINTS':     'UPDATE users SET points=? WHERE userID=?',
   };
 
   Database(int log) {
@@ -47,15 +45,6 @@ class Database {
     return Future.forEach(preparedStatements.keys, (key) =>
       _sqlite.prepare(_db, preparedStatements[key]).then((List result) => preparedStatements[key] = result[1]));
   }
-
-  /*
-  Future<int> create() {
-    return _sqlite.executeNonSelect(_db, 'CREATE TABLE users (userID INTEGER PRIMARY KEY,userName TEXT,password TEXT,points INTEGER)')
-      .then((_) => createUser('Guest', new Random().nextInt((1 << 32) - 1).toString())) // random password
-      .then((_) => _sqlite.executeNonSelect(_db, 'CREATE INDEX usersByName ON users (userName COLLATE NOCASE ASC)'))
-      ;
-  }
-  */
 
   Future<int> createUser(String userName, String password, {int batchID: null}) {
     //String dbPass = digestToString(new SHA1().update(UTF8.encode('sunny' + userName.toLowerCase() + password)).digest());

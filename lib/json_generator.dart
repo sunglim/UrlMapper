@@ -1,10 +1,11 @@
 library url_mapper.json_generator;
 
-import 'package:url_mapper/database.dart';
-import 'package:url_mapper/json_constants.dart';
 import 'dart:io';
 import 'dart:async';
 import 'dart:convert';
+
+import 'package:url_mapper/database.dart';
+import 'package:url_mapper/json_constants.dart';
 
 Future<List> JsonFromGetAll() {
   String dbPath = './test.db';
