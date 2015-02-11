@@ -6,7 +6,7 @@
 build:
 	gcc -std=c++11 -fPIC -O2 -I$(DART_SDK) -c -o sqlite.o lib/src/sqlite.cc
 	gcc -fPIC -O2 -DSQLITE_THREADSAFE=1 -DSQLITE_OMIT_LOAD_EXTENSION -c -o sqlite3.o lib/src/sqlite3.c
-	gcc -shared -Wl,-install_name,libsqlite.so -o lib/libsqlite.so sqlite.o sqlite3.o
+	gcc -shared -Wl,-soname,libsqlite.so -o lib/libsqlite.so sqlite.o sqlite3.o
 
 shell:
 	gcc -pthread -O2 -DSQLITE_THREADSAFE=1 -DSQLITE_OMIT_LOAD_EXTENSION -o bin/sqlite3 lib/src/shell.c lib/src/sqlite3.c
