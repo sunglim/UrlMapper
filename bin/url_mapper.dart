@@ -11,7 +11,7 @@ void main() {
       .addMiddleware(shelf.logRequests())
       .addHandler(_jsonRequest);
 
-  io.serve(handler, 'localhost', 8088).then((server) {
+  io.serve(handler, '192.168.0.6', 8088).then((server) {
     print('Serving at http://${server.address.host}:${server.port}');
   });
 }
