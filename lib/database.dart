@@ -11,7 +11,7 @@ class Database {
   bool _prepared;
 
   Map<String, dynamic> preparedStatements = { // note that map String values are overwritten by statement int in prepare
-    'CREATEUSER': 'INSERT INTO users (userName,password,points) values (?,?,NULL)',
+    'CREATEUSER': 'INSERT INTO ua_spoof (SITE, KIND) values (?,?)',
     'GETUSER': 'SELECT SITE, KIND FROM ua_spoof WHERE KIND=?',
     'GETUSERS': 'SELECT SITE, KIND FROM ua_spoof',
   };

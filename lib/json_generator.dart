@@ -21,14 +21,13 @@ Future<String> JsonQuery() {
     return new Future.value();
 }
 
-/*
 Future<String> JsonQueryWith(String ua) {
   String dbPath = './test.db';
     File dbFile = new File(dbPath);
     if (dbFile.existsSync()) {
       Database database = new Database(1);
       return database.open(dbPath, create: true)
-        .then((_) => database.getUsers().then((sites) {
+        .then((_) => database.getUser(ua)).then((sites) {
         return new Future.value(_GenearteJsonFromDatabase(sites));
       });
     }
@@ -36,7 +35,6 @@ Future<String> JsonQueryWith(String ua) {
     return new Future.value();
 }
 
-*/
 String _GenearteJsonFromDatabase(List sites) {
   Map<String, Object > sites_map = {};
   UA_MAP.forEach((k,v) {
