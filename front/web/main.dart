@@ -23,7 +23,8 @@ void main() {
 }
 
 void drawTable() {
-  var url = "http://192.168.1.103:8088/GetAll";
+  //var url = "http://192.168.0.6:8088/GetAll";
+  var url = "http://112.169.109.40:8088/GetAll";
   var request = HttpRequest.getString(url).then((output) {
       Map data = JSON.decode(output)["sites"];
       TableElement table = querySelector('#result_table');

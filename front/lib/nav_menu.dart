@@ -34,7 +34,7 @@ initNavMenu() {
   });
   
   downloadJson(e) {
-    window.open("http://192.168.1.103:8088/GetAll", 'foo');
+    window.open("http://112.169.109.40:8088/GetAll", 'foo');
   }
   downBtn.onClick.listen(downloadJson);
 }
