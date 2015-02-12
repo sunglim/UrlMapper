@@ -11,7 +11,7 @@ void main() {
   var handler = const shelf.Pipeline().addMiddleware(shelf.logRequests())
                                       .addHandler(_jsonRequest);
 
-  io.serve(handler, 'localhost', 8088).then((server) {
+  io.serve(handler, '192.168.1.103', 8088).then((server) {
     print('Serving at http://${server.address.host}:${server.port}');
   });
 }
@@ -48,7 +48,8 @@ Future<shelf.Response> _jsonRequest(shelf.Request request) {
 
     final String resultPath =
       request.url.toString() == '/' ? '/index.html' : request.url.toString();
-    final File file = new File('./web/${resultPath}');
+    //final File file = new File('../front/web/${resultPath}');
+    final File file = new File('../front/build/web/${resultPath}');
     if (file.existsSync()) {
       return new Future.value(new shelf.Response.ok(file.openRead(), headers: headers));
     };
