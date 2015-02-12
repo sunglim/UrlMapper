@@ -17,6 +17,8 @@ CREATE TABLE ua_spoof(
   */
 );
 INSERT INTO ua_spoof (SITE, KIND) values('mail.ru', 1);
-INSERT INTO ua_spoof (SITE, KIND) values('abc.es', 2);
+INSERT INTO ua_spoof (SITE, KIND) values('sohu.com', 2);
 INSERT INTO ua_spoof (SITE, KIND) values('abc.es', 3);
+INSERT INTO ua_spoof (SITE, KIND) values('pluzz.francetv.fr', 3);
+INSERT INTO ua_spoof (SITE, KIND) values('syriatel.sy', 3);
 SELECT * from ua_spoof;

@@ -34,13 +34,24 @@ Future<String> JsonQuery() {
 }
 
 String GenearteJsonFromDatabase(List sites) {
-  Map<String, List<String> > sites_map;
-
+  Map<String, Object > sites_map = {};
+  print(sites);
+  int site_index = 1;
+  UA_MAP.forEach((k,v) {
+    List<String> tmp = [];
+    // Select by the index of UA_MAP.
+    sites.where((i) => (i[1] == site_index)).toList().forEach((single_site) {
+      // No better way instead of using []?.
+      tmp.add(single_site[0]);
+    });
+    sites_map[k] = tmp;
+    site_index++;
+  });
   Map formData = {
       "version": "1.0",
       "keys": UA_MAP.keys.toList(),
       "uas": UA_MAP,
-      "sites": sites.toString()
+      "sites": sites_map
   };
-  return new JsonEncoder.withIndent('  ').convert(formData);
+  return new JsonEncoder.withIndent('    ').convert(formData);
 }

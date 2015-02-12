@@ -13,7 +13,7 @@ class Database {
   Map<String, dynamic> preparedStatements = { // note that map String values are overwritten by statement int in prepare
     'CREATEUSER':           'INSERT INTO users (userName,password,points) values (?,?,NULL)',
     'GETUSER':              'SELECT userID,userName,points FROM users WHERE userID=?',
-    'GETUSERS':             'SELECT * FROM ua_spoof',
+    'GETUSERS':             'SELECT SITE, KIND FROM ua_spoof',
   };
 
   Database(int log) {
