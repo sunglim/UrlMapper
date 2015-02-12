@@ -1,24 +1,11 @@
 CREATE TABLE ua_spoof(
   ID INTEGER PRIMARY KEY AUTOINCREMENT,
   SITE VARCHAR(255) UNIQUE,
-  KIND smallint
-  /* 0 = unknown
-     1 = sp_mail
-     2 = sp_abc
-     3 = sp_android
-     4 = sp android_m
-     5 = sp_ipad
-     6 = sp_ipadn
-     7 = sp_daum
-     8 = sp_digi
-     9 = sp_html5
-     10 = sp_yahoo
-     11 = sp_webtv
-  */
+  KIND VARCHAR(24)
 );
-INSERT INTO ua_spoof (SITE, KIND) values('mail.ru', 1);
-INSERT INTO ua_spoof (SITE, KIND) values('sohu.com', 2);
-INSERT INTO ua_spoof (SITE, KIND) values('abc.es', 3);
-INSERT INTO ua_spoof (SITE, KIND) values('pluzz.francetv.fr', 3);
-INSERT INTO ua_spoof (SITE, KIND) values('syriatel.sy', 3);
+INSERT INTO ua_spoof (SITE, KIND) values('mail.ru', "SP_MAIL");
+INSERT INTO ua_spoof (SITE, KIND) values('sohu.com', "SP_ANDROID_M");
+INSERT INTO ua_spoof (SITE, KIND) values('abc.es', "SP_ABC");
+INSERT INTO ua_spoof (SITE, KIND) values('pluzz.francetv.fr', "SP_ABC");
+INSERT INTO ua_spoof (SITE, KIND) values('syriatel.sy', "SP_ABC");
 SELECT * from ua_spoof;

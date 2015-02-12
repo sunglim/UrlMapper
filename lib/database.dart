@@ -11,9 +11,9 @@ class Database {
   bool _prepared;
 
   Map<String, dynamic> preparedStatements = { // note that map String values are overwritten by statement int in prepare
-    'CREATEUSER':           'INSERT INTO users (userName,password,points) values (?,?,NULL)',
-    'GETUSER':              'SELECT userID,userName,points FROM users WHERE userID=?',
-    'GETUSERS':             'SELECT SITE, KIND FROM ua_spoof',
+    'CREATEUSER': 'INSERT INTO users (userName,password,points) values (?,?,NULL)',
+    'GETUSER': 'SELECT SITE, KIND FROM ua_spoof WHERE KIND=?',
+    'GETUSERS': 'SELECT SITE, KIND FROM ua_spoof',
   };
 
   Database(int log) {
@@ -52,14 +52,8 @@ class Database {
       .then((result) => result[1]);
   }
 
-  Future<Map> getUser(int userID) {
-    return _sqlite.executeSelect(_db, preparedStatements['GETUSER'], params: [userID]).then((result) {
-      List rows = result[1];
-      if (rows.length == 0)
-        return null;
-      List r = rows[0];
-      return {'userID': r[0], 'userName': r[1], 'points': r[2]};
-    });
+  Future<List> getUser(String kind) {
+    return _sqlite.executeSelect(_db, preparedStatements['GETUSER'], params: [kind]).then((result) => result[1]);
   }
 
   Future<List> getUsers() {

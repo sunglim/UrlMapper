@@ -16,7 +16,12 @@ void main() {
 }
 
 Future<shelf.Response> _jsonRequest(shelf.Request request) {
-  if (request.url.toString() == "/GetAll") {
+  var query = request.url.toString();
+  if (query == "/GetAll") {
+    return JsonQuery().then((String json) {
+      return new Future.value(new shelf.Response.ok(json));
+    });
+  } else if (query == "/Get") {
     return JsonQuery().then((String json) {
       return new Future.value(new shelf.Response.ok(json));
     });
