@@ -1,7 +1,7 @@
 library url_mapper.constants;
 
-Map<String, String> UA_MAP =
-  {
+const Map<String, String> UA_MAP =
+  const {
 "SP_MAIL": "Mozilla/5.0 (Linux; U) AppleWebKit/537.31 (KHTML, like Gecko) Chrome/26.0.1410.33 Safari/537.31 LGTV/4.0",
 "SP_ABC": "Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/26.0.1410.33 Safari/537.36",
 "SP_ANDROID": "Mozilla/5.0 (Linux; U; Android 4.2.2; zh-cn; LG Android TV Build/JDQ39) AppleWebKit/534.30 (KHTML, like Gecko) Version/4.0 Safari/534.30",

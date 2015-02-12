@@ -5,19 +5,7 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:url_mapper/database.dart';
-import 'package:url_mapper/json_constants.dart';
-
-Future<List> JsonFromGetAll() {
-  String dbPath = './test.db';
-  File dbFile = new File(dbPath);
-  if (dbFile.existsSync()) {
-    Database database = new Database(1);
-    return database.open(dbPath, create: true)
-      .then((_) => database.getUsers());
-  }
-  print("Return NULL ERROR ");
-  return new Future.value();
-}
+import 'package:url_mapper/constants.dart';
 
 Future<String> JsonQuery() {
   String dbPath = './test.db';
@@ -26,16 +14,15 @@ Future<String> JsonQuery() {
       Database database = new Database(1);
       return database.open(dbPath, create: true)
         .then((_) => database.getUsers()).then((sites) {
-        return new Future.value(GenearteJsonFromDatabase(sites));
+        return new Future.value(_GenearteJsonFromDatabase(sites));
       });
     }
-    print("Return NULL ERROR ");
+    print("Return NULL ERROR.");
     return new Future.value();
 }
 
-String GenearteJsonFromDatabase(List sites) {
+String _GenearteJsonFromDatabase(List sites) {
   Map<String, Object > sites_map = {};
-  print(sites);
   int site_index = 1;
   UA_MAP.forEach((k,v) {
     List<String> tmp = [];
