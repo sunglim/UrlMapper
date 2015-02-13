@@ -1,16 +1,17 @@
 name: url_mapper
 version: 0.0.1
 author: Sungguk Lim
-description: personal
+description: Managing User Agent data and export to json.
 environment:
   sdk: '>=1.4.0 <2.0.0'
 dependencies:
-  sqlite:
-    path: ./dart-async-sqlite/
-  mime: any
+  mime: ">=0.9.2 <0.9.5"
   shelf: '>=0.5.7 <0.6.0'
   shelf_auth: '>=0.2.3+1 <0.3.0'
   shelf_route: '>=0.11.0+1 <0.12.0'
   shelf_web_socket: '>=0.0.1+1 <0.1.0'
+  sqlite:
+    path: ./dart-async-sqlite/
 dev_dependencies:
+  grinder: ">=0.6.6+3 <0.7.0"
   unittest: '>=0.10.0 <0.12.0'
