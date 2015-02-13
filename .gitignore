@@ -15,3 +15,4 @@ packages
 pubspec.lock
 
 *.swp
+*.swo
