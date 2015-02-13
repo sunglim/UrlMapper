@@ -5,11 +5,15 @@ library nav_menu;
 
 import 'dart:html';
 
+import 'package:front2/constants.dart';
+
 initNavMenu() {
   var navdrawerContainer = querySelector('.navdrawer-container');
   var appbarElement = querySelector('.app-bar');
   var menuBtn = querySelector('.menu');
   var main = querySelector('main');
+  
+  // TODO(sungguk): Refactor. Extract code which is should not belong to here.
   var downBtn = querySelector('#download');
 
   closeMenu(e) {
@@ -34,7 +38,7 @@ initNavMenu() {
   });
   
   downloadJson(e) {
-    window.open("http://192.168.1.103:8088/GetAll", 'foo');
+    window.open(URI_GET_ALL_FROM_FRONT, 'foo');
   }
   downBtn.onClick.listen(downloadJson);
 }
