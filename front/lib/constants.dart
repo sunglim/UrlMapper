@@ -13,3 +13,5 @@ String URI_GET_ALL = IP_ADDRESS + "GetAll";
 String URI_GET_ALL_FROM_FRONT = IP_ADDRESS + "GetAll";
 
 String URI_SET = IP_ADDRESS + "Set";
+
+String URI_DELETE = IP_ADDRESS + "Delete";

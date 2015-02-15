@@ -8,6 +8,7 @@ import 'package:front2/constants.dart';
 import 'package:front2/nav_menu.dart';
 import 'package:front2/select.dart';
 import 'package:front2/insert.dart';
+import 'package:front2/delete.dart';
 import 'package:route_hierarchical/client.dart';
 
 void main() {
@@ -36,12 +37,21 @@ void drawTable() {
           TableRowElement lastRow = table.insertRow(-1);
           lastRow.insertCell(0).text = k;
           lastRow.insertCell(1).text = "null";
+          lastRow.insertCell(2).text = "";
         } else {
           List<String> site_list = v;
           site_list.forEach((site) {
             TableRowElement lastRow = table.insertRow(-1);
             lastRow.insertCell(0).text = k;
-            lastRow.insertCell(1).text = site;  
+            lastRow.insertCell(1).text = site;
+            TableCellElement cell = lastRow.insertCell(2);
+            SpanElement span = new SpanElement().. text = "[delete]";
+            span.onClick.listen((_) {
+              if (window.confirm('Are you sure to delete ' + site + '?')) {
+                deleteItem(site);
+              }
+            });
+            cell.insertAdjacentElement('afterBegin', span);
           });
         }
       });     

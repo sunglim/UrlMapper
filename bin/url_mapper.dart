@@ -37,6 +37,13 @@ Future<shelf.Response> _jsonRequest(shelf.Request request) {
         return new Future.value(new shelf.Response.ok(ret.toString()));
       });
     return new Future.value(new shelf.Response.ok("missing param. http://localhost:8088/Set?site=msn.com&kind=SP_DIGI"));
+  } else if (query == "/Delete") {
+    var site = request.url.queryParameters["site"];
+    if (site != null)
+      return controller.DeleteSite(site).then((ret){
+        return new Future.value(new shelf.Response.ok(ret.toString()));
+      });
+    return new Future.value(new shelf.Response.ok("missing param. http://localhost:8088/Delete?site=msn.com"));
   } else {
     Map headers;
     var contentType = mime.lookupMimeType(request.url.path);
@@ -48,8 +55,8 @@ Future<shelf.Response> _jsonRequest(shelf.Request request) {
 
     final String resultPath =
       request.url.toString() == '/' ? '/index.html' : request.url.toString();
-    final File file = new File('../front/web/${resultPath}');
-    //final File file = new File('../front/build/web/${resultPath}');
+    //final File file = new File('../front/web/${resultPath}');
+    final File file = new File('../front/build/web/${resultPath}');
     if (file.existsSync()) {
       return new Future.value(new shelf.Response.ok(file.openRead(), headers: headers));
     };
