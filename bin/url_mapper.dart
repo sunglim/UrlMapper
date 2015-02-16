@@ -46,16 +46,15 @@ Future<shelf.Response> _jsonRequest(shelf.Request request) {
       });
     return new Future.value(new shelf.Response.ok("missing param. http://localhost:8088/Delete?site=msn.com"));
   } else {
+    final String resultPath =
+      request.url.toString() == '/' ? '/index.html' : request.url.toString();
     Map headers;
-    var contentType = mime.lookupMimeType(request.url.path);
+    var contentType = mime.lookupMimeType(resultPath);
     if (contentType != null) {
       headers = <String, String>{
         "Content-Type": contentType
       };
     }
-
-    final String resultPath =
-      request.url.toString() == '/' ? '/index.html' : request.url.toString();
     //final File file = new File('../front/web/${resultPath}');
     final File file = new File('../front/build/web/${resultPath}');
     if (file.existsSync()) {
