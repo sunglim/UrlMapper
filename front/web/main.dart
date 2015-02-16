@@ -36,7 +36,7 @@ void drawTable() {
       TableRowElement lastRow = table.insertRow(-1);
       lastRow.insertCell(0).text = item[1];
       lastRow.insertCell(1).text = item[0];
-      lastRow.insertCell(2).text = item[2];
+      lastRow.insertCell(2).text = _StatusToString(item[2]);
       TableCellElement cell = lastRow.insertCell(3);
       SpanElement span = new SpanElement().. text = "[delete]";
       span.onClick.listen((_) {
@@ -66,4 +66,17 @@ void showHome(RouteEvent e) {
   querySelector('#home').style.display = '';
   querySelector('#insert').style.display = 'none';
   querySelector('#about').style.display = 'none';
+}
+
+String _StatusToString(status) {
+  switch(status) {
+    case 0:
+      return "Spoofing works";
+    case 1:
+      return "Spoofing does not work";
+    case 2:
+      return "Not required(No video)";
+    case 3:
+      return "Not required(fine without spoofing)";
+  }
 }
