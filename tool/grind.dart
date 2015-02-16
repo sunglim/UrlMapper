@@ -1,9 +1,12 @@
+import 'dart:io';
+
 import 'package:grinder/grinder.dart';
 
 void main([List<String>  args]) {
   task('init', init);
   task('build', build, ['init']);
   task('run_server', run, ['build']);
+  task('run_home_server', run_home_server, ['build']);
 
   startGrinder(args);
 }
@@ -21,6 +24,15 @@ build(GrinderContext context) {
 }
 
 run(GrinderContext context) {
+  runDartScript(context, 'url_mapper.dart', workingDirectory: 'bin');
+}
+
+// Run server from my home. this will change the hosting IP Address from source
+// code.
+run_home_server(GrinderContext context) {
+  File constant = new File("./front/lib/constants.dart");
+  var content = constant.readAsStringSync().replaceAll("192.168.1.103", "112.169.109.40");
+  constant.writeAsStringSync(content);
   runDartScript(context, 'url_mapper.dart', workingDirectory: 'bin');
 }
 

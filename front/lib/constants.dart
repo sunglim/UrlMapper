@@ -3,12 +3,6 @@
 
 library constants;
 
-// TODO(sungguk): Get host ip address by default.
-
-// HOME SERVER.
-//const String IP_ADDRESS = "http://192.168.0.6:8088/";
-
-// COMPANY SERVER
 const String IP_ADDRESS = "http://192.168.1.103:8088/";
 const String HOME_EXPECTED = "${IP_ADDRESS}index.html";
 const String URI_GET_ALL = "${IP_ADDRESS}GetAll";
