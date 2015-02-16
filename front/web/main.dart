@@ -38,13 +38,15 @@ void drawTable() {
           lastRow.insertCell(0).text = k;
           lastRow.insertCell(1).text = "null";
           lastRow.insertCell(2).text = "";
+          lastRow.insertCell(3).text = "";
         } else {
           List<String> site_list = v;
           site_list.forEach((site) {
             TableRowElement lastRow = table.insertRow(-1);
             lastRow.insertCell(0).text = k;
             lastRow.insertCell(1).text = site;
-            TableCellElement cell = lastRow.insertCell(2);
+            lastRow.insertCell(2).text = site;
+            TableCellElement cell = lastRow.insertCell(3);
             SpanElement span = new SpanElement().. text = "[delete]";
             span.onClick.listen((_) {
               if (window.confirm('Are you sure to delete ' + site + '?')) {

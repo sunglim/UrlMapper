@@ -6,15 +6,10 @@ library constants;
 // NOTE: This file is .gitignore -ed.
 //       Be sure to added when you change this file.
 
-const String IP_ADDRESS = "http://112.169.109.40:8088/";
 const String HOME_EXPECTED = "${IP_ADDRESS}index.html";
+const String IP_ADDRESS = "http://112.169.109.40:8088/";
 const String URI_GET_ALL = "${IP_ADDRESS}GetAll";
-
-// Called from the client to get Json file.
-// Because from the home server, I use portforward the URI can be diffent
-// between the one called internally and the one called client.
-String URI_GET_ALL_FROM_FRONT = "${IP_ADDRESS}GetAll";
-
-String URI_SET = "${IP_ADDRESS}Set";
-
-String URI_DELETE = "${IP_ADDRESS}Delete";
+const String URI_GET_ALL_RAW = "${IP_ADDRESS}GetRaw";
+const String URI_DELETE = "${IP_ADDRESS}Delete";
+const String URI_GET_ALL_FROM_FRONT = "${IP_ADDRESS}GetAll";
+const String URI_SET = "${IP_ADDRESS}Set";
