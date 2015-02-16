@@ -12,8 +12,8 @@ initInsertFunction() {
   insertSubmitBtn.onClick.listen(onInsertBtnClick);
 }
 
-void insertItem(String site, String kind) {
-  var url = URI_SET + "?site=" + site + "&kind=" + kind;
+void insertItem(String site, String kind, String status) {
+  var url = URI_SET + "?site=" + site + "&kind=" + kind + "&status=" + status;
   var request = HttpRequest.getString(url).then((output) {
     window.location.assign(HOME_EXPECTED);
   })
@@ -24,12 +24,15 @@ void insertItem(String site, String kind) {
 
 void onInsertBtnClick(e) {
   var site = querySelector('#site_input');
-  SelectElement kind = querySelector('#kind_select');
   var msg = querySelector('#insert_msg');
   msg.text = "";
   if (site.value.isEmpty) {
     msg.text = "Fill out site input.";
     return;
   }
-  insertItem(site.value.toString().trim(), kind.options[kind.selectedIndex].value);
+  SelectElement kind = querySelector('#kind_select');
+  SelectElement status = querySelector('#status_select');
+  insertItem(site.value.toString().trim(),
+             kind.options[kind.selectedIndex].value,
+             status.options[status.selectedIndex].value);
 }

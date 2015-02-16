@@ -32,11 +32,12 @@ Future<shelf.Response> _jsonRequest(shelf.Request request) {
   } else if (query == "/Set") {
     var site = request.url.queryParameters["site"];
     var kind = request.url.queryParameters["kind"];
-    if (site != null && kind != null)
-      return controller.InsertSite(site, kind).then((ret){
+    var status = request.url.queryParameters["status"];
+    if (site != null && kind != null && status != null)
+      return controller.InsertSite(site, kind, status).then((ret){
         return new Future.value(new shelf.Response.ok(ret.toString()));
       });
-    return new Future.value(new shelf.Response.ok("missing param. http://localhost:8088/Set?site=msn.com&kind=SP_DIGI"));
+    return new Future.value(new shelf.Response.ok("missing param. http://localhost:8088/Set?site=msn.com&kind=SP_DIGI&status=1"));
   } else if (query == "/Delete") {
     var site = request.url.queryParameters["site"];
     if (site != null)

@@ -5,7 +5,7 @@ import 'dart:io';
 
 import 'package:url_mapper/database.dart';
 
-Future<int> InsertSite(String site, String kind) {
+Future<int> InsertSite(String site, String kind, String status) {
   // TODO(sungguk): Make single connection.
   String dbPath = './test.db';
   File dbFile = new File(dbPath);
