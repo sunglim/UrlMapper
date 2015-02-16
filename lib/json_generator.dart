@@ -44,7 +44,8 @@ String _GenearteJsonFromDatabase(List sites) {
     // Select by the index of UA_MAP.
     sites.where((i) => (i[1] == k)).toList().forEach((single_site) {
       // No better way instead of using []?.
-      tmp.add(single_site[0]);
+      if (single_site[2] == 0) // Only for status working.
+        tmp.add(single_site[0]);
     });
     sites_map[k] = tmp;
   });

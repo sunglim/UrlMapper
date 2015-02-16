@@ -14,6 +14,8 @@ initSelectFunction() {
       if (row.cells[0].innerHtml.toUpperCase().contains(
               input.value.toString().toUpperCase()) ||
           row.cells[1].innerHtml.toUpperCase().contains(
+              input.value.toString().toUpperCase()) ||
+          row.cells[2].innerHtml.toUpperCase().contains(
               input.value.toString().toUpperCase())) {
         row.style.display = "";  
       } else {
