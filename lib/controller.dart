@@ -12,7 +12,7 @@ Future<int> InsertSite(String site, String kind, String status) {
   if (dbFile.existsSync()) {
     Database database = new Database(1);
     return database.open(dbPath, create: true)
-      .then((_) => database.createUser(site, kind));
+      .then((_) => database.createUser(site, kind, status));
   }
   print("Return NULL ERROR.");
   return new Future.value(-1);

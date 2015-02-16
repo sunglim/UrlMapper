@@ -12,7 +12,7 @@ class Database {
 
   Map<String, dynamic> preparedStatements =
   { // note that map String values are overwritten by statement int in prepare
-    'CREATEUSER': 'INSERT INTO ua_spoof (SITE, KIND) values (?,?)',
+    'CREATEUSER': 'INSERT INTO ua_spoof (SITE, KIND, STATUS) values (?,?,?)',
     'DELETESITE': 'DELETE FROM ua_spoof WHERE site=?',
     'GETUSER': 'SELECT SITE, KIND FROM ua_spoof WHERE KIND=?',
     'GETUSERS': 'SELECT SITE, KIND FROM ua_spoof',
@@ -48,9 +48,9 @@ class Database {
       _sqlite.prepare(_db, preparedStatements[key]).then((List result) => preparedStatements[key] = result[1]));
   }
 
-  Future<int> createUser(String userName, String password, {int batchID: null}) {
-    //String dbPass = digestToString(new SHA1().update(UTF8.encode('sunny' + userName.toLowerCase() + password)).digest());
-    return _sqlite.executeNonSelect(_db, preparedStatements['CREATEUSER'], params: [userName, password], batchID: batchID)
+  Future<int> createUser(String site, String kind, String status, {int batchID: null}) {
+    return _sqlite.executeNonSelect(_db, preparedStatements['CREATEUSER'], params: [site, kind, status],
+                                    batchID: batchID)
       .then((result) => result[1]);
   }
 
