@@ -28,35 +28,27 @@ void main() {
 }
 
 void drawTable() {
-  var url = URI_GET_ALL;
+  var url = URI_GET_ALL_RAW;
   var request = HttpRequest.getString(url).then((output) {
-      Map data = JSON.decode(output)["sites"];
-      TableElement table = querySelector('#result_table');
-      data.forEach((k,v) {
-        if (v == null) {
-          TableRowElement lastRow = table.insertRow(-1);
-          lastRow.insertCell(0).text = k;
-          lastRow.insertCell(1).text = "null";
-          lastRow.insertCell(2).text = "";
-          lastRow.insertCell(3).text = "";
-        } else {
-          List<String> site_list = v;
-          site_list.forEach((site) {
-            TableRowElement lastRow = table.insertRow(-1);
-            lastRow.insertCell(0).text = k;
-            lastRow.insertCell(1).text = site;
-            lastRow.insertCell(2).text = site;
-            TableCellElement cell = lastRow.insertCell(3);
-            SpanElement span = new SpanElement().. text = "[delete]";
-            span.onClick.listen((_) {
-              if (window.confirm('Are you sure to delete ' + site + '?')) {
-                deleteItem(site);
-              }
-            });
-            cell.insertAdjacentElement('afterBegin', span);
-          });
-        }
-      });     
+    List items = JSON.decode(output);
+    TableElement table = querySelector('#result_table');
+    items.forEach((item) {
+      List<String> site_list = item;
+      site_list.forEach((site) {
+        TableRowElement lastRow = table.insertRow(-1);
+        lastRow.insertCell(0).text = k;
+        lastRow.insertCell(1).text = site;
+        lastRow.insertCell(2).text = site;
+        TableCellElement cell = lastRow.insertCell(3);
+        SpanElement span = new SpanElement().. text = "[delete]";
+        span.onClick.listen((_) {
+          if (window.confirm('Are you sure to delete ' + site + '?')) {
+            deleteItem(site);
+          }
+        });
+        cell.insertAdjacentElement('afterBegin', span);
+      }
+    });     
   });
 }
 

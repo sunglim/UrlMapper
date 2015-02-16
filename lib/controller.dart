@@ -2,6 +2,7 @@ library url_mapper.controller;
 
 import 'dart:async';
 import 'dart:io';
+import 'dart:convert';
 
 import 'package:url_mapper/database.dart';
 
@@ -37,9 +38,17 @@ Future<String> SelectSite() {
       Database database = new Database(1);
       return database.open(dbPath, create: true)
         .then((_) => database.getUsers()).then((sites) {
-        return new Future.value(sites.toString());
+        return new Future.value(_GenearteJsonFromDatabase(sites));
       });
     }
     print("Return NULL ERROR.");
     return new Future.value();
+}
+
+String _GenearteJsonFromDatabase(List sites) {
+  List<String> tmp = [];
+  sites.forEach((site) {
+    tmp.add(site);
+  });
+  return JSON.encode(tmp);
 }
