@@ -17,3 +17,4 @@ packages/
 pubspec.lock
 sqlite3.o
 sqlite.o
+lib/libsqlite.so
