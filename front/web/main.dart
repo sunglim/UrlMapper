@@ -36,9 +36,9 @@ void drawTable() {
       List<String> site_list = item;
       site_list.forEach((site) {
         TableRowElement lastRow = table.insertRow(-1);
-        lastRow.insertCell(0).text = k;
-        lastRow.insertCell(1).text = site;
-        lastRow.insertCell(2).text = site;
+        lastRow.insertCell(0).text = site[0];
+        lastRow.insertCell(1).text = site[1];
+        lastRow.insertCell(2).text = site[2];
         TableCellElement cell = lastRow.insertCell(3);
         SpanElement span = new SpanElement().. text = "[delete]";
         span.onClick.listen((_) {
@@ -47,7 +47,7 @@ void drawTable() {
           }
         });
         cell.insertAdjacentElement('afterBegin', span);
-      }
+      });
     });     
   });
 }
