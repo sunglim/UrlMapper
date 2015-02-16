@@ -33,21 +33,18 @@ void drawTable() {
     List items = JSON.decode(output);
     TableElement table = querySelector('#result_table');
     items.forEach((item) {
-      //List<String> site_list = item;
-      //site_list.forEach((site) {
-        TableRowElement lastRow = table.insertRow(-1);
-        lastRow.insertCell(0).text = item[0]; //m
-        lastRow.insertCell(1).text = item[1];
-        lastRow.insertCell(2).text = item[2];
-        TableCellElement cell = lastRow.insertCell(3);
-        SpanElement span = new SpanElement().. text = "[delete]";
-        span.onClick.listen((_) {
-          if (window.confirm('Are you sure to delete ' + item[0] + '?')) {
-            deleteItem(item[0]);
-          }
-        });
-        cell.insertAdjacentElement('afterBegin', span);
-      //});
+      TableRowElement lastRow = table.insertRow(-1);
+      lastRow.insertCell(0).text = item[1];
+      lastRow.insertCell(1).text = item[0];
+      lastRow.insertCell(2).text = item[2];
+      TableCellElement cell = lastRow.insertCell(3);
+      SpanElement span = new SpanElement().. text = "[delete]";
+      span.onClick.listen((_) {
+        if (window.confirm('Are you sure to delete ' + item[0] + '?')) {
+          deleteItem(item[0]);
+        }
+      });
+      cell.insertAdjacentElement('afterBegin', span);
     });     
   });
 }
