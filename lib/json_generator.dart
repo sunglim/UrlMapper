@@ -47,7 +47,7 @@ String _GenearteJsonFromDatabase(List sites) {
     sites_map[k] = tmp;
   });
   Map formData = {
-      "version": "1.0",
+      "version": "1.1",
       "keys": UA_MAP.keys.toList(),
       "uas": UA_MAP,
       "sites": sites_map
