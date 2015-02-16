@@ -3,6 +3,9 @@
 
 library constants;
 
+// NOTE: This file is .gitignore -ed.
+//       Be sure to added when you change this file.
+
 const String IP_ADDRESS = "http://192.168.1.103:8088/";
 const String HOME_EXPECTED = "${IP_ADDRESS}index.html";
 const String URI_GET_ALL = "${IP_ADDRESS}GetAll";
