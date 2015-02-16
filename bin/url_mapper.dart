@@ -18,7 +18,11 @@ void main() {
 
 Future<shelf.Response> _jsonRequest(shelf.Request request) {
   var query = request.url.path.toString();
-  if (query == "/GetAll") {
+  if (query == "/GetRaw") {
+    return controller.SelectSite().then((String json) {
+      return new Future.value(new shelf.Response.ok(json));
+    });
+  } else if (query == "/GetAll") {
     return JsonQuery().then((String json) {
       return new Future.value(new shelf.Response.ok(json));
     });

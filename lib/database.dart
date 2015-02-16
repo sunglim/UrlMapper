@@ -14,8 +14,8 @@ class Database {
   { // note that map String values are overwritten by statement int in prepare
     'CREATEUSER': 'INSERT INTO ua_spoof (SITE, KIND, STATUS) values (?,?,?)',
     'DELETESITE': 'DELETE FROM ua_spoof WHERE site=?',
-    'GETUSER': 'SELECT SITE, KIND FROM ua_spoof WHERE KIND=?',
-    'GETUSERS': 'SELECT SITE, KIND FROM ua_spoof',
+    'GETUSER': 'SELECT SITE, KIND, STATUS FROM ua_spoof WHERE KIND=?',
+    'GETUSERS': 'SELECT SITE, KIND, STATUS FROM ua_spoof',
   };
 
   Database(int log) {

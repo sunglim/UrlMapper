@@ -7,6 +7,8 @@ import 'dart:convert';
 import 'package:url_mapper/database.dart';
 import 'package:url_mapper/constants.dart';
 
+// TODO(sungguk): Remove database dependency.
+
 Future<String> JsonQuery() {
   String dbPath = './test.db';
     File dbFile = new File(dbPath);

@@ -29,3 +29,17 @@ Future<int> DeleteSite(String site) {
   print("ERROR deleteing site.");
   return new Future.value(-1);
 }
+
+Future<String> SelectSite() {
+  String dbPath = './test.db';
+    File dbFile = new File(dbPath);
+    if (dbFile.existsSync()) {
+      Database database = new Database(1);
+      return database.open(dbPath, create: true)
+        .then((_) => database.getUsers()).then((sites) {
+        return new Future.value(sites.toString());
+      });
+    }
+    print("Return NULL ERROR.");
+    return new Future.value();
+}
