@@ -14,7 +14,7 @@ initManageFunction() {
   querySelector('#create_branch_btn').onClick.listen(onCreateBranchBtnClick);
   querySelector('#delete_branch_btn').onClick.listen(onDeleteBranchBtnClick);
 
-  resetBranchDeleteSelect();
+  resetAllBranchSelect();
 }
 
 void insertCreateBranchItem(String branch) {
@@ -25,7 +25,7 @@ void insertCreateBranchItem(String branch) {
     querySelector('#create_branch_msg').text = "Already exist.";
   });
 
-  resetBranchDeleteSelect();
+  resetAllBranchSelect();
 }
 
 void onCreateBranchBtnClick(e) {
@@ -47,27 +47,34 @@ void onDeleteBranchBtnClick(e) {
   var request = HttpRequest.getString(url).then((output) {
   });
 
-  resetBranchDeleteSelect();
+  resetAllBranchSelect();
 }
 
-void resetBranchDeleteSelect() {
-  var url = URI_GET_ALL_BRANCHES;
-  List branches;
-  var request = HttpRequest.getString(url).then((output) {
-    SelectElement status = querySelector('#branch_delete_select');
-    status.options.forEach((e) {
+void resetAllBranchSelect() {
+  var request = HttpRequest.getString(URI_GET_ALL_BRANCHES).then((output) {
+    SelectElement delete_select = querySelector('#branch_delete_select');
+    delete_select.options.forEach((e) {
       e.remove();
     });
-
+    // branch_insert_select is not managed page. but it also should be reset.
+    SelectElement insert_select = querySelector('#branch_insert_select');
+    insert_select.options.forEach((e) {
+      e.remove();
+    });
+    OptionElement master_default = new OptionElement();
+    master_default.text = "Master";
+    master_default.value = "Master";
+    insert_select.children.add(master_default);
+ 
     List<String> decoded = JSON.decode(output);
     decoded.forEach((e) {
-      print(e);
       OptionElement option = new OptionElement();
       String branch_name =
           e.toString().replaceFirst('[','').replaceFirst(']','');
       option.text = branch_name;
       option.value = branch_name;
-      status.children.add(option);
+      delete_select.children.add(option);
+      insert_select.children.add(option);
     });
   }).catchError((Error error) {});
 }
