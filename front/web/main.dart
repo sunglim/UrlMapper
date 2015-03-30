@@ -23,6 +23,7 @@ void main() {
   router.root
     ..addRoute(name: 'about', path: '/about', enter: showAbout)
     ..addRoute(name: 'insert', path: '/insert', enter: showInsert)
+    ..addRoute(name: 'manage', path: '/manage', enter: showManage)
     ..addRoute(name: 'home', defaultRoute: true, path: '/', enter: showHome);
   router.listen();
 }
@@ -53,18 +54,28 @@ void showAbout(RouteEvent e) {
   // Extremely simple and non-scalable way to show different views.
   querySelector('#home').style.display = 'none';
   querySelector('#insert').style.display = 'none';
+  querySelector('#manage').style.display = 'none';
   querySelector('#about').style.display = '';
+}
+
+void showManage(RouteEvent e) {
+  querySelector('#home').style.display = 'none';
+  querySelector('#insert').style.display = 'none';
+  querySelector('#manage').style.display = '';
+  querySelector('#about').style.display = 'none';
 }
 
 void showInsert(RouteEvent e) {
   querySelector('#home').style.display = 'none';
   querySelector('#insert').style.display = '';
+  querySelector('#manage').style.display = 'none';
   querySelector('#about').style.display = 'none';
 }
 
 void showHome(RouteEvent e) {
   querySelector('#home').style.display = '';
   querySelector('#insert').style.display = 'none';
+  querySelector('#manage').style.display = 'none';
   querySelector('#about').style.display = 'none';
 }
 

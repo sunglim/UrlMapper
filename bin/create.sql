@@ -1,8 +1,10 @@
 CREATE TABLE ua_spoof(
   ID INTEGER PRIMARY KEY AUTOINCREMENT,
   SITE VARCHAR(255) UNIQUE,
-  KIND VARCHAR(24)
+  KIND VARCHAR(24),
+  STATUS INTEGER
 );
+
 INSERT INTO ua_spoof (SITE, KIND) values('mail.ru', "SP_MAIL");
 INSERT INTO ua_spoof (SITE, KIND) values('sohu.com', "SP_ANDROID_M");
 INSERT INTO ua_spoof (SITE, KIND) values('abc.es', "SP_ABC");

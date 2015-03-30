@@ -53,6 +53,7 @@
     <ul>
       <li><a href="/">Home</a></li>
       <li><a href="/insert">Insert</a></li>
+      <li><a href="/manage">Manage</a></li>
       <li><a href="/about">About</a></li>
     </ul>
   </nav>
@@ -117,6 +118,16 @@
       <br/>
       <button id="insert_submit">Submit</button>
       <div id="insert_msg"></div>
+    </div>
+    <div id="manage" style="display:none">
+      <p>
+        Create New Branch: <input type="text" id="create_branch" placeholder="mybranch">
+      <button id="create_branch_btn">Create</button>
+      </p>
+      <p>
+        Delete Branch: 
+        <button id="delete_branch_btn">Delete</button>
+      </p>
     </div>
     <div id="about" style="display:none">
       <p>
