@@ -12,7 +12,7 @@ void main() {
                                       .addHandler(_jsonRequest);
 
   io.serve(handler, '0.0.0.0', 8088).then((server) {
-    print('Serving at http://${server.address.host}:${server.port}');
+    print('Serving at Current PC IP Address. Port :${server.port}');
   });
 }
 
