@@ -18,7 +18,7 @@ class Database {
     'GETUSERS': 'SELECT SITE, KIND, STATUS FROM ua_spoof',
     // About branches.
     'CREATEBRANCH': 'INSERT INTO ua_branch (BRANCH) values(?)',
-    'GETBRANCHS': 'SELECT BRANCH FROM ua_branch (BRANCH) values(?)',
+    'GETBRANCHES': 'SELECT BRANCH FROM ua_branch',
   };
 
   Database(int log) {
@@ -77,6 +77,10 @@ class Database {
   Future<int> createBranch(String branch) {
     return _sqlite.executeNonSelect(_db, preparedStatements['CREATEBRANCH'], params: [branch], batchID: null)
       .then((result) => result[1]);
+  }
+
+  Future<List> getAllBranches() {
+    return _sqlite.executeSelect(_db, preparedStatements['GETBRANCHES']).then((result) => result[1]);
   }
 
   Future createUsersBatch(int nUserStart, int nUsers) {

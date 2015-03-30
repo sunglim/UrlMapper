@@ -58,6 +58,20 @@ Future<int> InsertBranch(String branch) {
   return new Future.value(-1);
 }
 
+Future<String> SelectAllBranches() {
+  String dbPath = './branch.db';
+  File dbFile = new File(dbPath);
+  if (dbFile.existsSync()) {
+    Database database = new Database(1);
+    return database.open(dbPath, create: true)
+      .then((_) => database.getAllBranches());
+    // Originally getAllBranches returns as List but
+    // auto-converted to String.
+  }
+  print("Return NULL ERROR.");
+  return new Future.value(-1);
+}
+
 String _GenearteJsonFromDatabase(List sites) {
   List<String> tmp = [];
   sites.forEach((site) {

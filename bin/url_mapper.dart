@@ -57,6 +57,10 @@ Future<shelf.Response> _jsonRequest(shelf.Request request) {
       });
     }
     return new Future.value(new shelf.Response.ok("missing param. http://localhost:8088/CreateBranch?branch=weboslite"));
+  } else if (query == "/GetAllBranches") {
+      return controller.SelectAllBranches().then((ret){
+        return new Future.value(new shelf.Response.ok(ret.toString()));
+      });
   } else {
     final String resultPath =
       request.url.toString() == '/' ? '/index.html' : request.url.toString();
