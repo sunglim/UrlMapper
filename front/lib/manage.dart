@@ -5,6 +5,7 @@
 
 library manage;
 
+import 'dart:convert';
 import 'dart:html';
 
 import 'package:front2/constants.dart';
@@ -12,6 +13,8 @@ import 'package:front2/constants.dart';
 initManageFunction() {
   var btn = querySelector('#create_branch_btn');
   btn.onClick.listen(onCreateBranchBtnClick);
+
+  resetBranchDeleteSelect();
 }
 
 void insertCreateBranchItem(String branch) {
@@ -21,6 +24,8 @@ void insertCreateBranchItem(String branch) {
   }).catchError((Error error) {
     querySelector('#create_branch_msg').text = "Already exist.";
   });
+
+  resetBranchDeleteSelect();
 }
 
 void onCreateBranchBtnClick(e) {
@@ -32,4 +37,26 @@ void onCreateBranchBtnClick(e) {
     return;
   }
   insertCreateBranchItem(site.value.toString().trim());
+}
+
+void resetBranchDeleteSelect() {
+  var url = URI_GET_ALL_BRANCHES;
+  List branches;
+  var request = HttpRequest.getString(url).then((output) {
+    SelectElement status = querySelector('#branch_delete_select');
+    status.options.forEach((e) {
+      e.remove();
+    });
+
+    List<String> decoded = JSON.decode(output);
+    decoded.forEach((e) {
+      print(e);
+      OptionElement option = new OptionElement();
+      String branch_name =
+          e.toString().replaceFirst('[','').replaceFirst(']','');
+      option.text = branch_name;
+      option.value = branch_name;
+      status.children.add(option);
+    });
+  }).catchError((Error error) {});
 }

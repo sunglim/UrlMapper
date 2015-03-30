@@ -64,9 +64,9 @@ Future<String> SelectAllBranches() {
   if (dbFile.existsSync()) {
     Database database = new Database(1);
     return database.open(dbPath, create: true)
-      .then((_) => database.getAllBranches());
-    // Originally getAllBranches returns as List but
-    // auto-converted to String.
+      .then((_) => database.getAllBranches()).then((branches) {
+        return new Future.value(_GenearteJsonFromDatabase(branches));
+      });
   }
   print("Return NULL ERROR.");
   return new Future.value(-1);
