@@ -9,12 +9,14 @@ import 'package:front2/nav_menu.dart';
 import 'package:front2/select.dart';
 import 'package:front2/insert.dart';
 import 'package:front2/delete.dart';
+import 'package:front2/manage.dart';
 import 'package:route_hierarchical/client.dart';
 
 void main() {
   initNavMenu();
   initSelectFunction();
   initInsertFunction();
+  initManageFunction();
 
   drawTable();
 

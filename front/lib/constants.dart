@@ -9,8 +9,10 @@ library constants;
 const String IP_ADDRESS = "http://192.168.1.103:8088/";
 
 const String HOME_EXPECTED = "${IP_ADDRESS}index.html";
+const String URI_CREATE_BRANCH = "${IP_ADDRESS}CreateBranch";
+const String URI_DELETE = "${IP_ADDRESS}Delete";
+const String URI_GET_ALL_BRANCHES = "${IP_ADDRESS}GetAllBranches";
+const String URI_GET_ALL_FROM_FRONT = "${IP_ADDRESS}GetAll";
 const String URI_GET_ALL = "${IP_ADDRESS}GetAll";
 const String URI_GET_ALL_RAW = "${IP_ADDRESS}GetRaw";
-const String URI_DELETE = "${IP_ADDRESS}Delete";
-const String URI_GET_ALL_FROM_FRONT = "${IP_ADDRESS}GetAll";
 const String URI_SET = "${IP_ADDRESS}Set";
