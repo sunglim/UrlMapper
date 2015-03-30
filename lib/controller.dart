@@ -84,6 +84,20 @@ Future<int> DeleteBranch(String branch) {
   return new Future.value(-1);
 }
 
+// Create with branch.
+Future<int> InsertSiteWithBranch(String branch, String site, String kind, String status) {
+  // TODO(sungguk): Make single connection.
+  String dbPath = './branch_test.db';
+  File dbFile = new File(dbPath);
+  if (dbFile.existsSync()) {
+    Database database = new Database(1);
+    return database.open(dbPath, create: true)
+      .then((_) => database.createSiteWithBranch(branch, site, kind, status));
+  }
+  print("Return NULL ERROR.");
+  return new Future.value(-1);
+}
+
 String _GenearteJsonFromDatabase(List sites) {
   List<String> tmp = [];
   sites.forEach((site) {

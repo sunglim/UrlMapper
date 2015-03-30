@@ -20,6 +20,9 @@ class Database {
     'CREATEBRANCH': 'INSERT INTO ua_branch (BRANCH) values(?)',
     'DELETEBRANCH': 'DELETE FROM ua_branch WHERE branch=?',
     'GETBRANCHES': 'SELECT BRANCH FROM ua_branch',
+    // Insert to branch related site.
+    'CREATEBRANCHSITE': 'INSERT INTO ua_spoof_branch (BRANCH, SITE, KIND, STATUS) values (?,?,?,?)',
+    'DELETEBRANCHSITE': 'DELETE FROM ua_spoof_branch WHERE branch=? AND site=?'
   };
 
   Database(int log) {
@@ -86,6 +89,16 @@ class Database {
 
   Future<List> getAllBranches() {
     return _sqlite.executeSelect(_db, preparedStatements['GETBRANCHES']).then((result) => result[1]);
+  }
+
+  Future<int> createSiteWithBranch(String branch, String site, String kind, String status, {int batchID: null}) {
+    return _sqlite.executeNonSelect(_db, preparedStatements['CREATEBRANCHSITE'], params: [branch, site, kind, status],
+                                    batchID: batchID)
+      .then((result) => result[1]);
+  }
+  
+  Future<int> deleteSiteWithBranch(String branch, String site) {
+    return _sqlite.executeNonSelect(_db, preparedStatements['DELETEBRANCHSITE'], params: [branch, site]).then((result) => result[1]);
   }
 
   Future createUsersBatch(int nUserStart, int nUsers) {
