@@ -49,6 +49,14 @@ Future<shelf.Response> _jsonRequest(shelf.Request request) {
         return new Future.value(new shelf.Response.ok(ret.toString()));
       });
     return new Future.value(new shelf.Response.ok("missing param. http://localhost:8088/Delete?site=msn.com"));
+  } else if (query == "/CreateBranch") {
+    var branch = request.url.queryParameters["branch"];
+    if (branch != null) {
+      return controller.InsertBranch(branch).then((ret){
+        return new Future.value(new shelf.Response.ok(ret.toString()));
+      });
+    }
+    return new Future.value(new shelf.Response.ok("missing param. http://localhost:8088/CreateBranch?branch=weboslite"));
   } else {
     final String resultPath =
       request.url.toString() == '/' ? '/index.html' : request.url.toString();

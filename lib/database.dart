@@ -16,6 +16,9 @@ class Database {
     'DELETESITE': 'DELETE FROM ua_spoof WHERE site=?',
     'GETUSER': 'SELECT SITE, KIND, STATUS FROM ua_spoof WHERE KIND=?',
     'GETUSERS': 'SELECT SITE, KIND, STATUS FROM ua_spoof',
+    // About branches.
+    'CREATEBRANCH': 'INSERT INTO ua_branch (BRANCH) values(?)',
+    'GETBRANCHS': 'SELECT BRANCH FROM ua_branch (BRANCH) values(?)',
   };
 
   Database(int log) {
@@ -69,6 +72,11 @@ class Database {
   Future createUsers(int nUserStart, int nUsers, {int batchID: null}) {
     int n = 0;
     return Future.doWhile(() => ++n == nUsers ? false : createUser('User${nUserStart + n - 1}', new Random().nextInt((1 << 32) - 1).toString(), batchID: batchID) != 0);
+  }
+
+  Future<int> createBranch(String branch) {
+    return _sqlite.executeNonSelect(_db, preparedStatements['CREATEBRANCH'], params: [branch], batchID: null)
+      .then((result) => result[1]);
   }
 
   Future createUsersBatch(int nUserStart, int nUsers) {

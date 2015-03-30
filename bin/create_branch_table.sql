@@ -1,0 +1,7 @@
+CREATE TABLE ua_branch(
+  ID INTEGER PRIMARY KEY AUTOINCREMENT,
+  BRANCH VARCHAR(24) UNIQUE
+);
+
+INSERT INTO ua_branch(BRANCH) values('lite');
+SELECT * from ua_branch;
