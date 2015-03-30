@@ -72,6 +72,18 @@ Future<String> SelectAllBranches() {
   return new Future.value(-1);
 }
 
+Future<int> DeleteBranch(String branch) {
+  String dbPath = './branch.db';
+  File dbFile = new File(dbPath);
+  if (dbFile.existsSync()) {
+    Database database = new Database(1);
+    return database.open(dbPath, create: true)
+      .then((_) => database.deleteBranch(branch));
+  }
+  print("ERROR deleteing branch.");
+  return new Future.value(-1);
+}
+
 String _GenearteJsonFromDatabase(List sites) {
   List<String> tmp = [];
   sites.forEach((site) {

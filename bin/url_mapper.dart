@@ -58,9 +58,15 @@ Future<shelf.Response> _jsonRequest(shelf.Request request) {
     }
     return new Future.value(new shelf.Response.ok("missing param. http://localhost:8088/CreateBranch?branch=weboslite"));
   } else if (query == "/GetAllBranches") {
-      return controller.SelectAllBranches().then((ret){
-        return new Future.value(new shelf.Response.ok(ret.toString()));
-      });
+    return controller.SelectAllBranches().then((ret){
+      return new Future.value(new shelf.Response.ok(ret.toString()));
+    });
+  } else if (query == "/DeleteBranch") {
+    var branch = request.url.queryParameters["branch"];
+    return controller.DeleteBranch(branch).then((ret){
+      return new Future.value(new shelf.Response.ok(ret.toString()));
+    });
+    return new Future.value(new shelf.Response.ok("missing param. http://localhost:8088/DeleteBranch?branch=lite"));
   } else {
     final String resultPath =
       request.url.toString() == '/' ? '/index.html' : request.url.toString();

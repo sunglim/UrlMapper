@@ -11,8 +11,8 @@ import 'dart:html';
 import 'package:front2/constants.dart';
 
 initManageFunction() {
-  var btn = querySelector('#create_branch_btn');
-  btn.onClick.listen(onCreateBranchBtnClick);
+  querySelector('#create_branch_btn').onClick.listen(onCreateBranchBtnClick);
+  querySelector('#delete_branch_btn').onClick.listen(onDeleteBranchBtnClick);
 
   resetBranchDeleteSelect();
 }
@@ -37,6 +37,17 @@ void onCreateBranchBtnClick(e) {
     return;
   }
   insertCreateBranchItem(site.value.toString().trim());
+}
+
+void onDeleteBranchBtnClick(e) {
+  SelectElement status = querySelector('#branch_delete_select');
+  String delete_branch = status.options[status.selectedIndex].value;
+
+  var url = URI_DELETE_BRANCH + "?branch=" + delete_branch;
+  var request = HttpRequest.getString(url).then((output) {
+  });
+
+  resetBranchDeleteSelect();
 }
 
 void resetBranchDeleteSelect() {

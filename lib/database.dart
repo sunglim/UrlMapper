@@ -18,6 +18,7 @@ class Database {
     'GETUSERS': 'SELECT SITE, KIND, STATUS FROM ua_spoof',
     // About branches.
     'CREATEBRANCH': 'INSERT INTO ua_branch (BRANCH) values(?)',
+    'DELETEBRANCH': 'DELETE FROM ua_branch WHERE branch=?',
     'GETBRANCHES': 'SELECT BRANCH FROM ua_branch',
   };
 
@@ -77,6 +78,10 @@ class Database {
   Future<int> createBranch(String branch) {
     return _sqlite.executeNonSelect(_db, preparedStatements['CREATEBRANCH'], params: [branch], batchID: null)
       .then((result) => result[1]);
+  }
+
+  Future<int> deleteBranch(String branch) {
+    return _sqlite.executeNonSelect(_db, preparedStatements['DELETEBRANCH'], params: [branch]).then((result) => result[1]);
   }
 
   Future<List> getAllBranches() {
