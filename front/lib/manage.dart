@@ -89,16 +89,19 @@ resetOverrideCheck(List branch_list) {
   var override_div = querySelector('#override_list');
   override_div.children.clear();
   branch_list.forEach((e) {
-    CheckboxInputElement checkbox = new CheckboxInputElement();
+    ButtonElement button = new ButtonElement();
     String branch_name =
           e.toString().replaceFirst('[','').replaceFirst(']','');
-    checkbox.name = branch_name;
-    checkbox.value = branch_name;
-    checkbox.id = branch_name + "_branch_checkbox";
-    LabelElement label = new LabelElement();
-    label.htmlFor = checkbox.id;
-    label.text = " " +branch_name + "   ";
-    override_div.children.add(checkbox);
-    override_div.children.add(label);
+    button.name = branch_name;
+    button.text= branch_name;
+    button.onClick.listen(_buttonListener);
+    button.id = branch_name + "_branch_btn";
+    override_div.children.add(button);
   });
+}
+
+_buttonListener(e) {
+  var target = e.target;
+  var url = URI_GET_ALL_FROM_FRONT + "?branch=" + target.text;
+  window.open(url, 'foo');
 }

@@ -38,6 +38,7 @@ initNavMenu() {
   });
   
   downloadJson(e) {
+    //var check_list = querySelectorAll('
     window.open(URI_GET_ALL_FROM_FRONT, 'foo');
   }
   downBtn.onClick.listen(downloadJson);
