@@ -40,7 +40,8 @@ void drawTable() {
       lastRow.insertCell(0).text = item[1];
       lastRow.insertCell(1).text = item[0];
       lastRow.insertCell(2).text = _StatusToString(item[2]);
-      TableCellElement cell = lastRow.insertCell(3);
+      lastRow.insertCell(3).text = "Master";
+      TableCellElement cell = lastRow.insertCell(4);
       SpanElement span = new SpanElement().. text = "[delete]";
       span.onClick.listen((_) {
         if (window.confirm('Are you sure to delete ' + item[0] + '?')) {

@@ -6,7 +6,10 @@ import 'dart:convert';
 
 import 'package:url_mapper/database.dart';
 
-Future<int> InsertSite(String site, String kind, String status) {
+Future<int> InsertSite(String branch, String site, String kind, String status) {
+  if (branch != null) {
+    return InsertSiteWithBranch(branch, site, kind, status);
+  }
   // TODO(sungguk): Make single connection.
   String dbPath = './test.db';
   File dbFile = new File(dbPath);

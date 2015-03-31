@@ -12,12 +12,14 @@ initInsertFunction() {
   insertSubmitBtn.onClick.listen(onInsertBtnClick);
 }
 
-void insertItem(String site, String kind, String status) {
+void insertItem(String branch, String site, String kind, String status) {
   var url = URI_SET + "?site=" + site + "&kind=" + kind + "&status=" + status;
+  if (branch != null && branch != "Master") {
+    url += "&branch=" + branch;
+  }
   var request = HttpRequest.getString(url).then((output) {
     window.location.assign(HOME_EXPECTED);
-  })
-  .catchError((Error error) {
+  }).catchError((Error error) {
     querySelector('#insert_msg').text = "Already exist.";
   });
 }
@@ -30,9 +32,11 @@ void onInsertBtnClick(e) {
     msg.text = "Fill out site input.";
     return;
   }
+  SelectElement branch = querySelector('#branch_insert_select');
   SelectElement kind = querySelector('#kind_select');
   SelectElement status = querySelector('#status_select');
-  insertItem(site.value.toString().trim(),
+  insertItem(branch.options[branch.selectedIndex].value,
+             site.value.toString().trim(),
              kind.options[kind.selectedIndex].value,
              status.options[status.selectedIndex].value);
 }
