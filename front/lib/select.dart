@@ -16,11 +16,14 @@ initSelectFunction() {
           row.cells[1].innerHtml.toUpperCase().contains(
               input.value.toString().toUpperCase()) ||
           row.cells[2].innerHtml.toUpperCase().contains(
+              input.value.toString().toUpperCase()) ||
+          row.cells[3].innerHtml.toUpperCase().contains(
               input.value.toString().toUpperCase())) {
-        row.style.display = "";  
+        row.style.display = "";
       } else {
         row.style.display = "none";
       }
     });
+    table.rows[0].style.display ="";
   });
 }
