@@ -67,6 +67,9 @@ void resetAllBranchSelect() {
     insert_select.children.add(master_default);
  
     List<String> decoded = JSON.decode(output);
+
+    resetOverrideCheck(decoded);
+
     decoded.forEach((e) {
       OptionElement option = new OptionElement();
       String branch_name =
@@ -80,4 +83,22 @@ void resetAllBranchSelect() {
       insert_select.children.add(option_clone);
     });
   }).catchError((Error error) {});
+}
+
+resetOverrideCheck(List branch_list) {
+  var override_div = querySelector('#override_list');
+  override_div.children.clear();
+  branch_list.forEach((e) {
+    CheckboxInputElement checkbox = new CheckboxInputElement();
+    String branch_name =
+          e.toString().replaceFirst('[','').replaceFirst(']','');
+    checkbox.name = branch_name;
+    checkbox.value = branch_name;
+    checkbox.id = branch_name + "_branch_checkbox";
+    LabelElement label = new LabelElement();
+    label.htmlFor = checkbox.id;
+    label.text = " " +branch_name + "   ";
+    override_div.children.add(checkbox);
+    override_div.children.add(label);
+  });
 }
