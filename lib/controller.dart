@@ -23,7 +23,7 @@ Future<int> InsertSite(String branch, String site, String kind, String status) {
 }
 
 Future<int> DeleteSite(String branch, String site) {
-  if (branch == null || branch !="Master") {
+  if (branch != null) {
     return DeleteSiteWithBranch(branch, site);
   }
   String dbPath = './test.db';

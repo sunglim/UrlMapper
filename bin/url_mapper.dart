@@ -83,8 +83,8 @@ Future<shelf.Response> _jsonRequest(shelf.Request request) {
         "Content-Type": contentType
       };
     }
-    //final File file = new File('../front/web/${resultPath}');
-    final File file = new File('../front/build/web/${resultPath}');
+    final File file = new File('../front/web/${resultPath}');
+    //final File file = new File('../front/build/web/${resultPath}');
     if (file.existsSync()) {
       return new Future.value(new shelf.Response.ok(file.openRead(), headers: headers));
     };
