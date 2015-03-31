@@ -73,8 +73,11 @@ void resetAllBranchSelect() {
           e.toString().replaceFirst('[','').replaceFirst(']','');
       option.text = branch_name;
       option.value = branch_name;
+      OptionElement option_clone = new OptionElement();
+      option_clone.text = branch_name;
+      option_clone.value = branch_name;
       delete_select.children.add(option);
-      insert_select.children.add(option);
+      insert_select.children.add(option_clone);
     });
   }).catchError((Error error) {});
 }
