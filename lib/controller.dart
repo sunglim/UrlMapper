@@ -22,7 +22,10 @@ Future<int> InsertSite(String branch, String site, String kind, String status) {
   return new Future.value(-1);
 }
 
-Future<int> DeleteSite(String site) {
+Future<int> DeleteSite(String branch, String site) {
+  if (branch == null || branch !="Master") {
+    return DeleteSiteWithBranch(branch, site);
+  }
   String dbPath = './test.db';
   File dbFile = new File(dbPath);
   if (dbFile.existsSync()) {
@@ -34,6 +37,19 @@ Future<int> DeleteSite(String site) {
   return new Future.value(-1);
 }
 
+Future<int> DeleteSiteWithBranch(String branch, String site) {
+  String dbPath = './branch_test.db';
+  File dbFile = new File(dbPath);
+  if (dbFile.existsSync()) {
+    Database database = new Database(1);
+    return database.open(dbPath, create: true)
+      .then((_) => database.deleteSiteWithBranch(branch, site));
+  }
+  print("ERROR deleteing site.");
+  return new Future.value(-1);
+}
+
+// Get Raw site data
 Future<String> SelectSite() {
   String dbPath = './test.db';
     File dbFile = new File(dbPath);
@@ -41,6 +57,21 @@ Future<String> SelectSite() {
       Database database = new Database(1);
       return database.open(dbPath, create: true)
         .then((_) => database.getUsers()).then((sites) {
+        return new Future.value(_GenearteJsonFromDatabase(sites));
+      });
+    }
+    print("Return NULL ERROR.");
+    return new Future.value();
+}
+
+// Get Raw site data with branch
+Future<String> SelectSitesWithBranch() {
+  String dbPath = './branch_test.db';
+    File dbFile = new File(dbPath);
+    if (dbFile.existsSync()) {
+      Database database = new Database(1);
+      return database.open(dbPath, create: true)
+        .then((_) => database.getSitesWithBranch()).then((sites) {
         return new Future.value(_GenearteJsonFromDatabase(sites));
       });
     }

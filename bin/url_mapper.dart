@@ -22,6 +22,10 @@ Future<shelf.Response> _jsonRequest(shelf.Request request) {
     return controller.SelectSite().then((String json) {
       return new Future.value(new shelf.Response.ok(json));
     });
+  } else if (query == "/GetRawWithBranch") {
+    return controller.SelectSitesWithBranch().then((String json) {
+      return new Future.value(new shelf.Response.ok(json));
+    });
   } else if (query == "/GetAll") {
     return JsonQuery().then((String json) {
       return new Future.value(new shelf.Response.ok(json));
@@ -45,8 +49,9 @@ Future<shelf.Response> _jsonRequest(shelf.Request request) {
     return new Future.value(new shelf.Response.ok("missing param. http://localhost:8088/Set?site=msn.com&kind=SP_DIGI&status=1"));
   } else if (query == "/Delete") {
     var site = request.url.queryParameters["site"];
+    var branch = request.url.queryParameters["branch"];
     if (site != null)
-      return controller.DeleteSite(site).then((ret){
+      return controller.DeleteSite(branch, site).then((ret){
         return new Future.value(new shelf.Response.ok(ret.toString()));
       });
     return new Future.value(new shelf.Response.ok("missing param. http://localhost:8088/Delete?site=msn.com"));

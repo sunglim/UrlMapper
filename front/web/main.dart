@@ -45,7 +45,32 @@ void drawTable() {
       SpanElement span = new SpanElement().. text = "[delete]";
       span.onClick.listen((_) {
         if (window.confirm('Are you sure to delete ' + item[0] + '?')) {
-          deleteItem(item[0]);
+          deleteItem(null, item[0]);
+        }
+      });
+      cell.insertAdjacentElement('afterBegin', span);
+    });
+  });
+  drawBranchRows();
+}
+
+// draw more site that have branch info.
+void drawBranchRows() {
+  var url = URI_GET_ALL_RAW_WITH_BRANCH;
+  var request = HttpRequest.getString(url).then((output) {
+    List items = JSON.decode(output);
+    TableElement table = querySelector('#result_table');
+    items.forEach((item) {
+      TableRowElement lastRow = table.insertRow(-1);
+      lastRow.insertCell(0).text = item[2];
+      lastRow.insertCell(1).text = item[1];
+      lastRow.insertCell(2).text = _StatusToString(item[3]);
+      lastRow.insertCell(3).text = "##  " + item[0];
+      TableCellElement cell = lastRow.insertCell(4);
+      SpanElement span = new SpanElement().. text = "[delete]";
+      span.onClick.listen((_) {
+        if (window.confirm('delete is not supported for now')) {
+          deleteItem(item[0], item[1]);
         }
       });
       cell.insertAdjacentElement('afterBegin', span);

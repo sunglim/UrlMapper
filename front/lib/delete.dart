@@ -7,12 +7,15 @@ import 'dart:html';
 
 import 'package:front2/constants.dart';
 
-void deleteItem(String site) {
+void deleteItem(String branch, String site) {
   var url = URI_DELETE + "?site=" + site;
+  if (branch != null) {
+    url += "&branch=" + branch;
+  }
   var request = HttpRequest.getString(url).then((output) {
     window.location.assign(HOME_EXPECTED);
   })
   .catchError((Error error) {
-    querySelector('#insert_msg').text = "Already exist.";
+    querySelector('#insert_msg').text = "Error to delete.";
   });
 }

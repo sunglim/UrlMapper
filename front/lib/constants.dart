@@ -16,4 +16,5 @@ const String URI_GET_ALL_BRANCHES = "${IP_ADDRESS}GetAllBranches";
 const String URI_GET_ALL_FROM_FRONT = "${IP_ADDRESS}GetAll";
 const String URI_GET_ALL = "${IP_ADDRESS}GetAll";
 const String URI_GET_ALL_RAW = "${IP_ADDRESS}GetRaw";
+const String URI_GET_ALL_RAW_WITH_BRANCH = "${IP_ADDRESS}GetRawWithBranch";
 const String URI_SET = "${IP_ADDRESS}Set";
