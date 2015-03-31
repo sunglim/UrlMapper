@@ -27,9 +27,16 @@ Future<shelf.Response> _jsonRequest(shelf.Request request) {
       return new Future.value(new shelf.Response.ok(json));
     });
   } else if (query == "/GetAll") {
-    return JsonQuery().then((String json) {
-      return new Future.value(new shelf.Response.ok(json));
-    });
+    var branch = request.url.queryParameters["branch"];
+    if (branch == null) {
+      return JsonQuery().then((String json) {
+        return new Future.value(new shelf.Response.ok(json));
+      });
+    } else {
+      return JsonQueryMergeBranch(branch).then((String json) {
+        return new Future.value(new shelf.Response.ok(json));
+      });
+    }
   } else if (query == "/Get") {
     var kind = request.url.queryParameters["kind"];
     if (kind == null)

@@ -23,6 +23,7 @@ class Database {
     // Insert to branch related site.
     'CREATEBRANCHSITE': 'INSERT INTO ua_spoof_branch (BRANCH, SITE, KIND, STATUS) values (?,?,?,?)',
     'GETBRANCHSITES': 'SELECT BRANCH, SITE, KIND, STATUS FROM ua_spoof_branch',
+    'GETBRANCHSITESWITH': 'SELECT BRANCH, SITE, KIND, STATUS FROM ua_spoof_branch WHERE branch=?',
     'DELETEBRANCHSITE': 'DELETE FROM ua_spoof_branch WHERE branch=? AND site=?'
   };
 
@@ -98,8 +99,13 @@ class Database {
       .then((result) => result[1]);
   }
 
+  // select all
   Future<List> getSitesWithBranch() {
     return _sqlite.executeSelect(_db, preparedStatements['GETBRANCHSITES']).then((result) => result[1]);
+  }
+
+  Future<List> getSitesWithBranchName(String branch) {
+    return _sqlite.executeSelect(_db, preparedStatements['GETBRANCHSITESWITH'], params: [branch]).then((result) => result[1]);
   }
   
   Future<int> deleteSiteWithBranch(String branch, String site) {
