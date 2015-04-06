@@ -118,6 +118,45 @@ Future<int> DeleteBranch(String branch) {
   return new Future.value(-1);
 }
 
+// Create Kind.
+Future<int> InsertKind(String kind, String ua) {
+  String dbPath = './ua_kind.db';
+  File dbFile = new File(dbPath);
+  if (dbFile.existsSync()) {
+    Database database = new Database(1);
+    return database.open(dbPath, create: true)
+      .then((_) => database.createKind(branch, ua));
+  }
+  print("Return NULL ERROR.");
+  return new Future.value(-1);
+}
+
+Future<String> SelectAllKinds() {
+  String dbPath = './ua_kind.db';
+  File dbFile = new File(dbPath);
+  if (dbFile.existsSync()) {
+    Database database = new Database(1);
+    return database.open(dbPath, create: true)
+      .then((_) => database.getAllKinds()).then((kinds) {
+        return new Future.value(_GenearteJsonFromDatabase(branches));
+      });
+  }
+  print("Return NULL ERROR.");
+  return new Future.value(-1);
+}
+
+Future<int> DeleteKind(String kind) {
+  String dbPath = './ua_kind.db';
+  File dbFile = new File(dbPath);
+  if (dbFile.existsSync()) {
+    Database database = new Database(1);
+    return database.open(dbPath, create: true)
+      .then((_) => database.deleteKind(kind));
+  }
+  print("ERROR deleteing kind.");
+  return new Future.value(-1);
+}
+
 // Create with branch.
 Future<int> InsertSiteWithBranch(String branch, String site, String kind, String status) {
   // TODO(sungguk): Make single connection.

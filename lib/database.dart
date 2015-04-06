@@ -16,6 +16,10 @@ class Database {
     'DELETESITE': 'DELETE FROM ua_spoof WHERE site=?',
     'GETUSER': 'SELECT SITE, KIND, STATUS FROM ua_spoof WHERE KIND=?',
     'GETUSERS': 'SELECT SITE, KIND, STATUS FROM ua_spoof',
+    // About Kind.
+    'CREATEKIND': 'INSERT INTO ua_kind (KIND, UA) values(?, ?)',
+    'DELETEKIND': 'DELETE FROM ua_kind WHERE kind=?',
+    'GETKINDS': 'SELECT BRANCH FROM ua_kind',
     // About branches.
     'CREATEBRANCH': 'INSERT INTO ua_branch (BRANCH) values(?)',
     'DELETEBRANCH': 'DELETE FROM ua_branch WHERE branch=?',
@@ -80,6 +84,7 @@ class Database {
     return Future.doWhile(() => ++n == nUsers ? false : createUser('User${nUserStart + n - 1}', new Random().nextInt((1 << 32) - 1).toString(), batchID: batchID) != 0);
   }
 
+  // About branch
   Future<int> createBranch(String branch) {
     return _sqlite.executeNonSelect(_db, preparedStatements['CREATEBRANCH'], params: [branch], batchID: null)
       .then((result) => result[1]);
@@ -91,6 +96,18 @@ class Database {
 
   Future<List> getAllBranches() {
     return _sqlite.executeSelect(_db, preparedStatements['GETBRANCHES']).then((result) => result[1]);
+  }
+
+  // About kind
+  Future<int> createKind(String kind, String ua) {
+    return _sqlite.executeNonSelect(_db, preparedStatements['CREATEKIND'], params: [kind, ua], batchID: null)
+      .then((result) => result[1]);
+  }
+  Future<int> deleteKind(String kind) {
+    return _sqlite.executeNonSelect(_db, preparedStatements['DELETEKIND'], params: [kind]).then((result) => result[1]);
+  }
+  Future<List> getAllKinds() {
+    return _sqlite.executeSelect(_db, preparedStatements['GETKINDS']).then((result) => result[1]);
   }
 
   Future<int> createSiteWithBranch(String branch, String site, String kind, String status, {int batchID: null}) {
