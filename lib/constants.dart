@@ -13,5 +13,6 @@ const Map<String, String> UA_MAP =
 "SP_DIGI": "Mozilla/5.0 (Windows NT 6.1; NetCast) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/26.0.1410.33 Safari/537.36",
 "SP_HTML5": "Mozilla/5.0 (Linux; U) AppleWebKit/537.31 (KHTML, like Gecko) Chrome/34.0.1847.137 Safari/537.31",
 "SP_YAHOO": "Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.31 (KHTML, like Gecko) Chrome/34.0.1847.137 Safari/537.31 SmartTV/6.0",
-"SP_WEBTV": "Mozilla/4.0 WebTV (Linux; NetCast; U) AppleWebKit/537.31 (KHTML, like Gecko) Chrome/34.0.1847.137 Safari/537.31 SmartTV/6.0"
+"SP_WEBTV": "Mozilla/4.0 WebTV (Linux; NetCast; U) AppleWebKit/537.31 (KHTML, like Gecko) Chrome/34.0.1847.137 Safari/537.31 SmartTV/6.0",
+"SP_NEXUS10": "Mozilla/5.0 (Linux; Android 4.3; Nexus 10 Build/JSS15Q) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/42.0.2307.2 Mobile Safari/537.36"
   };
