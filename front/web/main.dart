@@ -17,6 +17,7 @@ void main() {
   initSelectFunction();
   initInsertFunction();
   initManageFunction();
+  //initHistoryFunction();
 
   drawTable();
 
@@ -26,13 +27,14 @@ void main() {
     ..addRoute(name: 'about', path: '/about', enter: showAbout)
     ..addRoute(name: 'insert', path: '/insert', enter: showInsert)
     ..addRoute(name: 'manage', path: '/manage', enter: showManage)
+    ..addRoute(name: 'history', path: '/history', enter: showHistory)
     ..addRoute(name: 'home', defaultRoute: true, path: '/', enter: showHome);
   router.listen();
 }
 
 void drawTable() {
   var url = URI_GET_ALL_RAW;
-  var request = HttpRequest.getString(url).then((output) {
+  HttpRequest.getString(url).then((output) {
     List items = JSON.decode(output);
     TableElement table = querySelector('#result_table');
     items.forEach((item) {
@@ -57,7 +59,7 @@ void drawTable() {
 // draw more site that have branch info.
 void drawBranchRows() {
   var url = URI_GET_ALL_RAW_WITH_BRANCH;
-  var request = HttpRequest.getString(url).then((output) {
+  HttpRequest.getString(url).then((output) {
     List items = JSON.decode(output);
     TableElement table = querySelector('#result_table');
     items.forEach((item) {
@@ -83,13 +85,23 @@ void showAbout(RouteEvent e) {
   querySelector('#home').style.display = 'none';
   querySelector('#insert').style.display = 'none';
   querySelector('#manage').style.display = 'none';
+  querySelector('#history').style.display = 'none';
   querySelector('#about').style.display = '';
+}
+
+void showHistory(RouteEvent e) {
+  querySelector('#home').style.display = 'none';
+  querySelector('#insert').style.display = 'none';
+  querySelector('#manage').style.display = 'none';
+  querySelector('#history').style.display = '';
+  querySelector('#about').style.display = 'none';
 }
 
 void showManage(RouteEvent e) {
   querySelector('#home').style.display = 'none';
   querySelector('#insert').style.display = 'none';
   querySelector('#manage').style.display = '';
+  querySelector('#history').style.display = 'none';
   querySelector('#about').style.display = 'none';
 }
 
@@ -97,6 +109,7 @@ void showInsert(RouteEvent e) {
   querySelector('#home').style.display = 'none';
   querySelector('#insert').style.display = '';
   querySelector('#manage').style.display = 'none';
+  querySelector('#history').style.display = 'none';
   querySelector('#about').style.display = 'none';
 }
 
@@ -104,6 +117,7 @@ void showHome(RouteEvent e) {
   querySelector('#home').style.display = '';
   querySelector('#insert').style.display = 'none';
   querySelector('#manage').style.display = 'none';
+  querySelector('#history').style.display = 'none';
   querySelector('#about').style.display = 'none';
 }
 
