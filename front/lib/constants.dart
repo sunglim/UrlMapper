@@ -11,9 +11,12 @@ const String IP_ADDRESS = "http://127.0.0.1:8088/";
 
 const String HOME_EXPECTED = "${IP_ADDRESS}index.html";
 const String URI_CREATE_BRANCH = "${IP_ADDRESS}CreateBranch";
+const String URI_CREATE_KIND = "${IP_ADDRESS}CreateKind";
 const String URI_DELETE = "${IP_ADDRESS}Delete";
 const String URI_DELETE_BRANCH = "${IP_ADDRESS}DeleteBranch";
+const String URI_DELETE_KIND = "${IP_ADDRESS}DeleteKind";
 const String URI_GET_ALL_BRANCHES = "${IP_ADDRESS}GetAllBranches";
+const String URI_GET_ALL_KINDS = "${IP_ADDRESS}GetAllKinds";
 const String URI_GET_ALL_FROM_FRONT = "${IP_ADDRESS}GetAll";
 const String URI_GET_ALL = "${IP_ADDRESS}GetAll";
 const String URI_GET_ALL_RAW = "${IP_ADDRESS}GetRaw";

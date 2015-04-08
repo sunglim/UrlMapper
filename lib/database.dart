@@ -19,7 +19,7 @@ class Database {
     // About Kind.
     'CREATEKIND': 'INSERT INTO ua_kind (KIND, UA) values(?, ?)',
     'DELETEKIND': 'DELETE FROM ua_kind WHERE kind=?',
-    'GETKINDS': 'SELECT BRANCH FROM ua_kind',
+    'GETKINDS': 'SELECT KIND, UA FROM ua_kind',
     // About branches.
     'CREATEBRANCH': 'INSERT INTO ua_branch (BRANCH) values(?)',
     'DELETEBRANCH': 'DELETE FROM ua_branch WHERE branch=?',
