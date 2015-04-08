@@ -57,7 +57,7 @@ Future<String> SelectSite() {
       Database database = new Database(1);
       return database.open(dbPath, create: true)
         .then((_) => database.getUsers()).then((sites) {
-        return new Future.value(_GenearteJsonFromDatabase(sites));
+        return new Future.value(_GenearteJsonString(sites));
       });
     }
     print("Return NULL ERROR.");
@@ -72,7 +72,7 @@ Future<String> SelectSitesWithBranch() {
       Database database = new Database(1);
       return database.open(dbPath, create: true)
         .then((_) => database.getSitesWithBranch()).then((sites) {
-        return new Future.value(_GenearteJsonFromDatabase(sites));
+        return new Future.value(_GenearteJsonString(sites));
       });
     }
     print("Return NULL ERROR.");
@@ -99,7 +99,7 @@ Future<String> SelectAllBranches() {
     Database database = new Database(1);
     return database.open(dbPath, create: true)
       .then((_) => database.getAllBranches()).then((branches) {
-        return new Future.value(_GenearteJsonFromDatabase(branches));
+        return new Future.value(_GenearteJsonString(branches));
       });
   }
   print("Return NULL ERROR.");
@@ -118,6 +118,65 @@ Future<int> DeleteBranch(String branch) {
   return new Future.value(-1);
 }
 
+// Create Kind.
+Future<int> InsertKind(String kind, String ua) {
+  String dbPath = './ua_kind.db';
+  File dbFile = new File(dbPath);
+  if (dbFile.existsSync()) {
+    Database database = new Database(1);
+    return database.open(dbPath, create: true)
+      .then((_) => database.createKind(kind, ua));
+  }
+  print("Return NULL ERROR.");
+  return new Future.value(-1);
+}
+
+Future<String> SelectAllKinds() {
+  String dbPath = './ua_kind.db';
+  File dbFile = new File(dbPath);
+  if (dbFile.existsSync()) {
+    Database database = new Database(1);
+    return database.open(dbPath, create: true)
+      .then((_) => database.getAllKinds()).then((kinds) {
+        return new Future.value(_GenearteJsonString(kinds));
+      });
+  }
+  print("Return NULL ERROR.");
+  return new Future.value(-1);
+}
+
+Future<Map<String, String> > SelectAllKindsAsMap() {
+  String dbPath = './ua_kind.db';
+  File dbFile = new File(dbPath);
+  if (dbFile.existsSync()) {
+    Database database = new Database(1);
+    return database.open(dbPath, create: true)
+      .then((_) => database.getAllKinds()).then((kinds) {
+        return new Future.value(_GenerateMap(kinds));
+      });
+  }
+}
+
+Map<String, String> _GenerateMap(List kinds) {
+  Map<String, String> ua_map = {};
+  kinds.forEach((single) {
+    ua_map[single[0] ] = single[1];
+  });
+  return ua_map;
+}
+
+Future<int> DeleteKind(String kind) {
+  String dbPath = './ua_kind.db';
+  File dbFile = new File(dbPath);
+  if (dbFile.existsSync()) {
+    Database database = new Database(1);
+    return database.open(dbPath, create: true)
+      .then((_) => database.deleteKind(kind));
+  }
+  print("ERROR deleteing kind.");
+  return new Future.value(-1);
+}
+
 // Create with branch.
 Future<int> InsertSiteWithBranch(String branch, String site, String kind, String status) {
   // TODO(sungguk): Make single connection.
@@ -132,7 +191,7 @@ Future<int> InsertSiteWithBranch(String branch, String site, String kind, String
   return new Future.value(-1);
 }
 
-String _GenearteJsonFromDatabase(List sites) {
+String _GenearteJsonString(List sites) {
   List<String> tmp = [];
   sites.forEach((site) {
     tmp.add(site);

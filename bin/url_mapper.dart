@@ -74,6 +74,25 @@ Future<shelf.Response> _jsonRequest(shelf.Request request) {
     return controller.SelectAllBranches().then((ret){
       return new Future.value(new shelf.Response.ok(ret.toString()));
     });
+  } else if (query == "/CreateKind") {
+    var kind = request.url.queryParameters["kind"];
+    var ua = request.url.queryParameters["ua"];
+    if (kind != null && ua != null) {
+      return controller.InsertKind(kind, ua).then((ret){
+        return new Future.value(new shelf.Response.ok(ret.toString()));
+      });
+    }
+    return new Future.value(new shelf.Response.ok("missing param. http://localhost:8088/CreateKind?kind=weboslite&ua=myua"));
+  } else if (query == "/GetAllKinds") {
+    return controller.SelectAllKinds().then((ret){
+      return new Future.value(new shelf.Response.ok(ret.toString()));
+    });
+  } else if (query == "/DeleteKind") {
+    var kind = request.url.queryParameters["kind"];
+    return controller.DeleteKind(kind).then((ret){
+      return new Future.value(new shelf.Response.ok(ret.toString()));
+    });
+    return new Future.value(new shelf.Response.ok("missing param. http://localhost:8088/DeleteKind?kind=KIND"));
   } else if (query == "/DeleteBranch") {
     var branch = request.url.queryParameters["branch"];
     return controller.DeleteBranch(branch).then((ret){
@@ -90,8 +109,8 @@ Future<shelf.Response> _jsonRequest(shelf.Request request) {
         "Content-Type": contentType
       };
     }
-    //final File file = new File('../front/web/${resultPath}');
-    final File file = new File('../front/build/web/${resultPath}');
+    final File file = new File('../front/web/${resultPath}');
+    //final File file = new File('../front/build/web/${resultPath}');
     if (file.existsSync()) {
       return new Future.value(new shelf.Response.ok(file.openRead(), headers: headers));
     };
