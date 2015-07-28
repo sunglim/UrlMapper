@@ -6,7 +6,7 @@ library constants;
 // NOTE: This file is .gitignore -ed.
 //       Be sure to added when you change this file.
 
-const String IP_ADDRESS = "http://112.169.109.40:8088/";
+const String IP_ADDRESS = "http://112.169.34.164:8088/";
 //const String IP_ADDRESS = "http://127.0.0.1:8088/";
 
 const String HOME_EXPECTED = "${IP_ADDRESS}index.html";

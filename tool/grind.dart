@@ -31,7 +31,7 @@ run(GrinderContext context) {
 // code.
 run_home_server(GrinderContext context) {
   File constant = new File("./front/lib/constants.dart");
-  var content = constant.readAsStringSync().replaceAll("192.168.1.103", "112.169.109.40");
+  var content = constant.readAsStringSync().replaceAll("172.30.1.29", "112.169.34.164");
   constant.writeAsStringSync(content);
   build(context);
   runDartScript(context, 'url_mapper.dart', workingDirectory: 'bin');
