@@ -13,9 +13,6 @@ initNavMenu() {
   var menuBtn = querySelector('.menu');
   var main = querySelector('main');
   
-  // TODO(sungguk): Refactor. Extract code which is should not belong to here.
-  var downBtn = querySelector('#download');
-
   closeMenu(e) {
     document.body.classes.remove('open');
     appbarElement.classes.remove('open');
@@ -41,5 +38,17 @@ initNavMenu() {
     //var check_list = querySelectorAll('
     window.open(URI_GET_ALL_FROM_FRONT, 'foo');
   }
+
+  // TODO(sungguk): Refactor. Extract code which is should not belong to here.
+  var downBtn = querySelector('#download');
   downBtn.onClick.listen(downloadJson);
+
+  downloadManualJson(e) {
+    var branch_list =
+        querySelector('#manual_override_query').value.replaceAll(' ','');
+    window.open(URI_GET_ALL_FROM_OVERRIDE + "?branch=" + branch_list, 'foo');
+  }
+
+  var downOverideBtn = querySelector('#download_manual');
+  downOverideBtn.onClick.listen(downloadManualJson);
 }

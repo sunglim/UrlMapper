@@ -9,38 +9,50 @@ import 'package:url_mapper/controller.dart' as controller;
 
 // TODO(sungguk): Remove database dependency.
 
-Future<String> JsonQuery() {
+Future<List> _GetMasterSite() {
   String dbPath = './test.db';
-    File dbFile = new File(dbPath);
-    if (dbFile.existsSync()) {
-      Database database = new Database(1);
-      return database.open(dbPath, create: true)
-        .then((_) => database.getUsers()).then((sites) {
-        return _GenearteJsonFromDatabase(sites);
-      });
-    }
-    print("Return NULL ERROR.");
-    return new Future.value();
+  File dbFile = new File(dbPath);
+  if (dbFile.existsSync()) {
+    Database database = new Database(1);
+    return database.open(dbPath, create: true)
+      .then((_) => database.getUsers());
+  }
+}
+
+Future<String> JsonQuery() {
+  return _GetMasterSite().then((sites) {
+    return _GenearteJsonFromDatabase(sites);
+  });
+  print("Return NULL ERROR.");
+  return new Future.value();
+}
+
+Future<String> JsonQueryWithSeveralBranchOverride(String branch_list) {
+  var test = "";
+  List<String> branches = branch_list.split("+");
+  branches.forEach((single) {
+  });
+  return new Future.value(test);
 }
 
 Future<String> JsonQueryMergeBranch(String branch_name) {
   String dbPath = './test.db';
-    File dbFile = new File(dbPath);
-    if (dbFile.existsSync()) {
-      Database database = new Database(1);
-      return database.open(dbPath, create: true)
-        .then((_) => database.getUsers()).then((sites) {
-          dbPath = './branch_test.db';
-          Database database2 = new Database(1);
-          return database2.open(dbPath, create:true)
-            .then((_) => database2.getSitesWithBranchName(branch_name)).then((branch_site) {
-              List master_sites = _MergeBranchSite(sites, branch_site);
-              return new Future.value(_GenearteJsonFromDatabase(master_sites));
-            });
-      });
-    }
-    print("Return NULL ERROR.");
-    return new Future.value();
+  File dbFile = new File(dbPath);
+  if (dbFile.existsSync()) {
+    Database database = new Database(1);
+    return database.open(dbPath, create: true)
+      .then((_) => database.getUsers()).then((sites) {
+        dbPath = './branch_test.db';
+        Database database2 = new Database(1);
+        return database2.open(dbPath, create:true)
+          .then((_) => database2.getSitesWithBranchName(branch_name)).then((branch_site) {
+            List master_sites = _MergeBranchSite(sites, branch_site);
+            return new Future.value(_GenearteJsonFromDatabase(master_sites));
+          });
+    });
+  }
+  print("Return NULL ERROR.");
+  return new Future.value();
 }
 
 // two parameter list has different member.
