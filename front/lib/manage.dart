@@ -152,6 +152,7 @@ void resetAllBranchSelect() {
 
 resetOverrideCheck(List branch_list) {
   var override_div = querySelector('#override_list');
+  var override_manual_div = querySelector('#override_manual_list');
   override_div.children.clear();
   branch_list.forEach((e) {
     ButtonElement button = new ButtonElement();
@@ -162,6 +163,11 @@ resetOverrideCheck(List branch_list) {
     button.onClick.listen(_buttonListener);
     button.id = branch_name + "_branch_btn";
     override_div.children.add(button);
+
+    AnchorElement anchor = new AnchorElement();
+    anchor.text = " " + branch_name + " ";
+    anchor.onClick.listen(_manualOverrideListener);
+    override_manual_div.children.add(anchor);
   });
 }
 
@@ -169,4 +175,10 @@ _buttonListener(e) {
   var target = e.target;
   var url = URI_GET_ALL_FROM_FRONT + "?branch=" + target.text;
   window.open(url, 'foo');
+}
+
+_manualOverrideListener(e) {
+  var target = e.target;
+  var override_input = querySelector('#manual_override_query');
+  override_input.value = override_input.value + target.text + " + ";
 }
