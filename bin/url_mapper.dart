@@ -37,6 +37,11 @@ Future<shelf.Response> _jsonRequest(shelf.Request request) {
         return new Future.value(new shelf.Response.ok(json));
       });
     }
+  } else if (query == "/GetOverride") {
+    var branch = request.url.queryParameters["branch"];
+    return JsonQueryWithSeveralBranchOverride(branch).then((String json) {
+      return new Future.value(new shelf.Response.ok(json));
+    });
   } else if (query == "/Get") {
     var kind = request.url.queryParameters["kind"];
     if (kind == null)
@@ -109,8 +114,8 @@ Future<shelf.Response> _jsonRequest(shelf.Request request) {
         "Content-Type": contentType
       };
     }
-    //final File file = new File('../front/web/${resultPath}');
-    final File file = new File('../front/build/web/${resultPath}');
+    final File file = new File('../front/web/${resultPath}');
+    //final File file = new File('../front/build/web/${resultPath}');
     if (file.existsSync()) {
       return new Future.value(new shelf.Response.ok(file.openRead(), headers: headers));
     };

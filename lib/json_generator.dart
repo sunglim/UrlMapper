@@ -9,38 +9,67 @@ import 'package:url_mapper/controller.dart' as controller;
 
 // TODO(sungguk): Remove database dependency.
 
-Future<String> JsonQuery() {
+Future<List> _GetMasterSite() {
   String dbPath = './test.db';
-    File dbFile = new File(dbPath);
-    if (dbFile.existsSync()) {
-      Database database = new Database(1);
-      return database.open(dbPath, create: true)
-        .then((_) => database.getUsers()).then((sites) {
-        return _GenearteJsonFromDatabase(sites);
+  File dbFile = new File(dbPath);
+  if (dbFile.existsSync()) {
+    Database database = new Database(1);
+    return database.open(dbPath, create: true)
+      .then((_) => database.getUsers());
+  }
+  return new Future.value();
+}
+
+Future<String> JsonQuery() {
+  return _GetMasterSite().then((sites) {
+    return _GenearteJsonFromDatabase(sites);
+  });
+}
+
+Future<String> JsonQueryWithSeveralBranchOverride(String branch_list) {
+  return _GetMasterSite().then((sites) {
+    List merged = sites;
+    List<String> branches = branch_list.split(" ");
+
+    return Future.forEach(branches, (single_branch) {
+      return _GetBranchSite(single_branch).then((sites) {
+        merged = _MergeBranchSite(merged, sites);
       });
-    }
-    print("Return NULL ERROR.");
-    return new Future.value();
+    }).then((_) {
+      return new Future.value(_GenearteJsonFromDatabase(merged));
+    });
+  });
+}
+
+Future<List> _GetBranchSite(String branch) {
+  String dbPath = './branch_test.db';
+  File dbFile = new File(dbPath);
+  if (dbFile.existsSync()) {
+    Database database = new Database(1);
+    return database.open(dbPath, create:true)
+        .then((_) => database.getSitesWithBranchName(branch));
+  }
+  return new Future.value();
 }
 
 Future<String> JsonQueryMergeBranch(String branch_name) {
   String dbPath = './test.db';
-    File dbFile = new File(dbPath);
-    if (dbFile.existsSync()) {
-      Database database = new Database(1);
-      return database.open(dbPath, create: true)
-        .then((_) => database.getUsers()).then((sites) {
-          dbPath = './branch_test.db';
-          Database database2 = new Database(1);
-          return database2.open(dbPath, create:true)
-            .then((_) => database2.getSitesWithBranchName(branch_name)).then((branch_site) {
-              List master_sites = _MergeBranchSite(sites, branch_site);
-              return new Future.value(_GenearteJsonFromDatabase(master_sites));
-            });
-      });
-    }
-    print("Return NULL ERROR.");
-    return new Future.value();
+  File dbFile = new File(dbPath);
+  if (dbFile.existsSync()) {
+    Database database = new Database(1);
+    return database.open(dbPath, create: true)
+      .then((_) => database.getUsers()).then((sites) {
+        dbPath = './branch_test.db';
+        Database database2 = new Database(1);
+        return database2.open(dbPath, create:true)
+          .then((_) => database2.getSitesWithBranchName(branch_name)).then((branch_site) {
+            List master_sites = _MergeBranchSite(sites, branch_site);
+            return new Future.value(_GenearteJsonFromDatabase(master_sites));
+          });
+    });
+  }
+  print("Return NULL ERROR.");
+  return new Future.value();
 }
 
 // two parameter list has different member.
