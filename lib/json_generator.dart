@@ -17,22 +17,39 @@ Future<List> _GetMasterSite() {
     return database.open(dbPath, create: true)
       .then((_) => database.getUsers());
   }
+  return new Future.value();
 }
 
 Future<String> JsonQuery() {
   return _GetMasterSite().then((sites) {
     return _GenearteJsonFromDatabase(sites);
   });
-  print("Return NULL ERROR.");
-  return new Future.value();
 }
 
 Future<String> JsonQueryWithSeveralBranchOverride(String branch_list) {
-  var test = "";
-  List<String> branches = branch_list.split("+");
-  branches.forEach((single) {
+  return _GetMasterSite().then((sites) {
+    List merged = sites;
+    List<String> branches = branch_list.split(" ");
+
+    return Future.forEach(branches, (single_branch) {
+      return _GetBranchSite(single_branch).then((sites) {
+        merged = _MergeBranchSite(merged, sites);
+      });
+    }).then((_) {
+      return new Future.value(_GenearteJsonFromDatabase(merged));
+    });
   });
-  return new Future.value(test);
+}
+
+Future<List> _GetBranchSite(String branch) {
+  String dbPath = './branch_test.db';
+  File dbFile = new File(dbPath);
+  if (dbFile.existsSync()) {
+    Database database = new Database(1);
+    return database.open(dbPath, create:true)
+        .then((_) => database.getSitesWithBranchName(branch));
+  }
+  return new Future.value();
 }
 
 Future<String> JsonQueryMergeBranch(String branch_name) {
