@@ -184,8 +184,18 @@ Future<int> InsertSiteWithBranch(String branch, String site, String kind, String
   File dbFile = new File(dbPath);
   if (dbFile.existsSync()) {
     Database database = new Database(1);
+
     return database.open(dbPath, create: true)
-      .then((_) => database.createSiteWithBranch(branch, site, kind, status));
+      .then((_) {
+          return database.getSitesWIthBranchAndData(branch, site).then((result) {
+            print(result);
+            if (result.isNotEmpty) {
+    print("Return NULL ERROR.");
+    return new Future.value(-1);
+            }
+            return database.createSiteWithBranch(branch, site, kind, status);
+          });
+       });
   }
   print("Return NULL ERROR.");
   return new Future.value(-1);

@@ -56,6 +56,9 @@ Future<shelf.Response> _jsonRequest(shelf.Request request) {
     var status = request.url.queryParameters["status"];
     if (site != null && kind != null && status != null)
       return controller.InsertSite(branch, site, kind, status).then((ret){
+        if (ret == -1) {
+          return new Future.value(new shelf.Response.ok("duplicate site."));
+        }
         return new Future.value(new shelf.Response.ok(ret.toString()));
       });
     return new Future.value(new shelf.Response.ok("missing param. http://localhost:8088/Set?site=msn.com&kind=SP_DIGI&status=1"));
@@ -114,8 +117,8 @@ Future<shelf.Response> _jsonRequest(shelf.Request request) {
         "Content-Type": contentType
       };
     }
-    //final File file = new File('../front/web/${resultPath}');
-    final File file = new File('../front/build/web/${resultPath}');
+    final File file = new File('../front/web/${resultPath}');
+    //final File file = new File('../front/build/web/${resultPath}');
     if (file.existsSync()) {
       return new Future.value(new shelf.Response.ok(file.openRead(), headers: headers));
     };
