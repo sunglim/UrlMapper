@@ -15,8 +15,9 @@ Future<int> InsertSite(String branch, String site, String kind, String status) {
   File dbFile = new File(dbPath);
   if (dbFile.existsSync()) {
     Database database = new Database(1);
-    return database.open(dbPath, create: true)
-      .then((_) => database.createUser(site, kind, status));
+    return database
+        .open(dbPath, create: true)
+        .then((_) => database.createUser(site, kind, status));
   }
   print("Return NULL ERROR.");
   return new Future.value(-1);
@@ -30,8 +31,9 @@ Future<int> DeleteSite(String branch, String site) {
   File dbFile = new File(dbPath);
   if (dbFile.existsSync()) {
     Database database = new Database(1);
-    return database.open(dbPath, create: true)
-      .then((_) => database.deleteSite(site));
+    return database
+        .open(dbPath, create: true)
+        .then((_) => database.deleteSite(site));
   }
   print("ERROR deleteing site.");
   return new Future.value(-1);
@@ -42,8 +44,9 @@ Future<int> DeleteSiteWithBranch(String branch, String site) {
   File dbFile = new File(dbPath);
   if (dbFile.existsSync()) {
     Database database = new Database(1);
-    return database.open(dbPath, create: true)
-      .then((_) => database.deleteSiteWithBranch(branch, site));
+    return database
+        .open(dbPath, create: true)
+        .then((_) => database.deleteSiteWithBranch(branch, site));
   }
   print("ERROR deleteing site.");
   return new Future.value(-1);
@@ -52,31 +55,35 @@ Future<int> DeleteSiteWithBranch(String branch, String site) {
 // Get Raw site data
 Future<String> SelectSite() {
   String dbPath = './test.db';
-    File dbFile = new File(dbPath);
-    if (dbFile.existsSync()) {
-      Database database = new Database(1);
-      return database.open(dbPath, create: true)
-        .then((_) => database.getUsers()).then((sites) {
-        return new Future.value(_GenearteJsonString(sites));
-      });
-    }
-    print("Return NULL ERROR.");
-    return new Future.value();
+  File dbFile = new File(dbPath);
+  if (dbFile.existsSync()) {
+    Database database = new Database(1);
+    return database
+        .open(dbPath, create: true)
+        .then((_) => database.getUsers())
+        .then((sites) {
+      return new Future.value(_GenearteJsonString(sites));
+    });
+  }
+  print("Return NULL ERROR.");
+  return new Future.value();
 }
 
 // Get Raw site data with branch
 Future<String> SelectSitesWithBranch() {
   String dbPath = './branch_test.db';
-    File dbFile = new File(dbPath);
-    if (dbFile.existsSync()) {
-      Database database = new Database(1);
-      return database.open(dbPath, create: true)
-        .then((_) => database.getSitesWithBranch()).then((sites) {
-        return new Future.value(_GenearteJsonString(sites));
-      });
-    }
-    print("Return NULL ERROR.");
-    return new Future.value();
+  File dbFile = new File(dbPath);
+  if (dbFile.existsSync()) {
+    Database database = new Database(1);
+    return database
+        .open(dbPath, create: true)
+        .then((_) => database.getSitesWithBranch())
+        .then((sites) {
+      return new Future.value(_GenearteJsonString(sites));
+    });
+  }
+  print("Return NULL ERROR.");
+  return new Future.value();
 }
 
 // Create branch.
@@ -85,8 +92,9 @@ Future<int> InsertBranch(String branch) {
   File dbFile = new File(dbPath);
   if (dbFile.existsSync()) {
     Database database = new Database(1);
-    return database.open(dbPath, create: true)
-      .then((_) => database.createBranch(branch));
+    return database
+        .open(dbPath, create: true)
+        .then((_) => database.createBranch(branch));
   }
   print("Return NULL ERROR.");
   return new Future.value(-1);
@@ -97,10 +105,12 @@ Future<String> SelectAllBranches() {
   File dbFile = new File(dbPath);
   if (dbFile.existsSync()) {
     Database database = new Database(1);
-    return database.open(dbPath, create: true)
-      .then((_) => database.getAllBranches()).then((branches) {
-        return new Future.value(_GenearteJsonString(branches));
-      });
+    return database
+        .open(dbPath, create: true)
+        .then((_) => database.getAllBranches())
+        .then((branches) {
+      return new Future.value(_GenearteJsonString(branches));
+    });
   }
   print("Return NULL ERROR.");
   return new Future.value(-1);
@@ -111,8 +121,9 @@ Future<int> DeleteBranch(String branch) {
   File dbFile = new File(dbPath);
   if (dbFile.existsSync()) {
     Database database = new Database(1);
-    return database.open(dbPath, create: true)
-      .then((_) => database.deleteBranch(branch));
+    return database
+        .open(dbPath, create: true)
+        .then((_) => database.deleteBranch(branch));
   }
   print("ERROR deleteing branch.");
   return new Future.value(-1);
@@ -124,8 +135,9 @@ Future<int> InsertKind(String kind, String ua) {
   File dbFile = new File(dbPath);
   if (dbFile.existsSync()) {
     Database database = new Database(1);
-    return database.open(dbPath, create: true)
-      .then((_) => database.createKind(kind, ua));
+    return database
+        .open(dbPath, create: true)
+        .then((_) => database.createKind(kind, ua));
   }
   print("Return NULL ERROR.");
   return new Future.value(-1);
@@ -136,31 +148,35 @@ Future<String> SelectAllKinds() {
   File dbFile = new File(dbPath);
   if (dbFile.existsSync()) {
     Database database = new Database(1);
-    return database.open(dbPath, create: true)
-      .then((_) => database.getAllKinds()).then((kinds) {
-        return new Future.value(_GenearteJsonString(kinds));
-      });
+    return database
+        .open(dbPath, create: true)
+        .then((_) => database.getAllKinds())
+        .then((kinds) {
+      return new Future.value(_GenearteJsonString(kinds));
+    });
   }
   print("Return NULL ERROR.");
   return new Future.value(-1);
 }
 
-Future<Map<String, String> > SelectAllKindsAsMap() {
+Future<Map<String, String>> SelectAllKindsAsMap() {
   String dbPath = './ua_kind.db';
   File dbFile = new File(dbPath);
   if (dbFile.existsSync()) {
     Database database = new Database(1);
-    return database.open(dbPath, create: true)
-      .then((_) => database.getAllKinds()).then((kinds) {
-        return new Future.value(_GenerateMap(kinds));
-      });
+    return database
+        .open(dbPath, create: true)
+        .then((_) => database.getAllKinds())
+        .then((kinds) {
+      return new Future.value(_GenerateMap(kinds));
+    });
   }
 }
 
 Map<String, String> _GenerateMap(List kinds) {
   Map<String, String> ua_map = {};
   kinds.forEach((single) {
-    ua_map[single[0] ] = single[1];
+    ua_map[single[0]] = single[1];
   });
   return ua_map;
 }
@@ -170,32 +186,33 @@ Future<int> DeleteKind(String kind) {
   File dbFile = new File(dbPath);
   if (dbFile.existsSync()) {
     Database database = new Database(1);
-    return database.open(dbPath, create: true)
-      .then((_) => database.deleteKind(kind));
+    return database
+        .open(dbPath, create: true)
+        .then((_) => database.deleteKind(kind));
   }
   print("ERROR deleteing kind.");
   return new Future.value(-1);
 }
 
 // Create with branch.
-Future<int> InsertSiteWithBranch(String branch, String site, String kind, String status) {
+Future<int> InsertSiteWithBranch(
+    String branch, String site, String kind, String status) {
   // TODO(sungguk): Make single connection.
   String dbPath = './branch_test.db';
   File dbFile = new File(dbPath);
   if (dbFile.existsSync()) {
     Database database = new Database(1);
 
-    return database.open(dbPath, create: true)
-      .then((_) {
-          return database.getSitesWIthBranchAndData(branch, site).then((result) {
-            print(result);
-            if (result.isNotEmpty) {
-    print("Return NULL ERROR.");
-    return new Future.value(-1);
-            }
-            return database.createSiteWithBranch(branch, site, kind, status);
-          });
-       });
+    return database.open(dbPath, create: true).then((_) {
+      return database.getSitesWIthBranchAndData(branch, site).then((result) {
+        print(result);
+        if (result.isNotEmpty) {
+          print("Return NULL ERROR.");
+          return new Future.value(-1);
+        }
+        return database.createSiteWithBranch(branch, site, kind, status);
+      });
+    });
   }
   print("Return NULL ERROR.");
   return new Future.value(-1);
