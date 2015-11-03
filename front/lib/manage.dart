@@ -18,6 +18,7 @@ initManageFunction() {
 
   resetAllBranchSelect();
   resetAllKindSelect();
+  resetAllTouchSiteSelect();
 }
 
 void insertCreateBranchItem(String branch) {
@@ -169,6 +170,22 @@ resetOverrideCheck(List branch_list) {
     anchor.onClick.listen(_manualOverrideListener);
     override_manual_div.children.add(anchor);
   });
+}
+
+void resetAllTouchSiteSelect() {
+  var request = HttpRequest.getString(URI_GET_ALL_TOUCH_SITES).then((output) {
+    List<String> decoded = JSON.decode(output);
+
+    SelectElement insert_select = querySelector('#touch_site_select');
+    decoded.forEach((e) {
+      OptionElement option = new OptionElement();
+      String touch_site =
+          e.toString().replaceFirst('[','').replaceFirst(']','');
+      option.text = touch_site;
+      option.value = touch_site;
+      insert_select.children.add(option);
+    });
+  }).catchError((Error error) {});
 }
 
 _buttonListener(e) {

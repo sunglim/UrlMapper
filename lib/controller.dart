@@ -218,6 +218,23 @@ Future<int> InsertSiteWithBranch(
   return new Future.value(-1);
 }
 
+// Get Touch site data.
+Future<String> SelectTouchSites() {
+  String dbPath = './touch_site_table.db';
+  File dbFile = new File(dbPath);
+  if (dbFile.existsSync()) {
+    Database database = new Database(1);
+    return database
+        .open(dbPath, create: true)
+        .then((_) => database.getTouchSites())
+        .then((sites) {
+      return new Future.value(_GenearteJsonString(sites));
+    });
+  }
+  print("Return NULL ERROR.");
+  return new Future.value();
+}
+
 String _GenearteJsonString(List sites) {
   List<String> tmp = [];
   sites.forEach((site) {

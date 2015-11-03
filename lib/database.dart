@@ -32,7 +32,10 @@ class Database {
         'SELECT BRANCH, SITE, KIND, STATUS FROM ua_spoof_branch WHERE branch=?',
     'GETBRANCHSITESWITHDATA':
         'SELECT BRANCH, SITE, KIND, STATUS FROM ua_spoof_branch WHERE branch=? and site=?',
-    'DELETEBRANCHSITE': 'DELETE FROM ua_spoof_branch WHERE branch=? AND site=?'
+    'DELETEBRANCHSITE': 'DELETE FROM ua_spoof_branch WHERE branch=? AND site=?',
+    // touch_sites
+    'GETTOUCHSITES': 'SELECT SITE FROM touch_sites',
+    'CREATETOUCHSITE': 'INSERT INTO touch_sites (SITE) value(?)'
   };
 
   Database(int log) {
@@ -191,6 +194,23 @@ class Database {
         .then((_) => _sqlite.executeNonSelect(_db, 'COMMIT', batchID: batchID))
         .then((_) => _sqlite.endBatch());
   }
+
+  Future<List> getTouchSites() {
+    return _sqlite
+        .executeSelect(_db, preparedStatements['GETTOUCHSITES'])
+        .then((result) => result[1]);
+  }
+
+  /*
+  Future createTouchSite(String site) {
+    int batchID = _sqlite.beginBatch();
+    return _sqlite
+        .executeNonSelect(_db, 'SITE', batchID: batchID)
+        .then((_) => createUsers(nUserStart, nUsers, batchID: batchID))
+        .then((_) => _sqlite.executeNonSelect(_db, 'COMMIT', batchID: batchID))
+        .then((_) => _sqlite.endBatch());
+  }
+  */
 }
 
 Future<List> GetAll() {
