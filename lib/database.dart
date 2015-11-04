@@ -35,7 +35,8 @@ class Database {
     'DELETEBRANCHSITE': 'DELETE FROM ua_spoof_branch WHERE branch=? AND site=?',
     // touch_sites
     'GETTOUCHSITES': 'SELECT SITE FROM touch_sites',
-    'CREATETOUCHSITE': 'INSERT INTO touch_sites (SITE) values(?)'
+    'CREATETOUCHSITE': 'INSERT INTO touch_sites (SITE) values(?)',
+    'DELETETOUCHSITE': 'DELETE FROM touch_sites WHERE site=?'
   };
 
   Database(int log) {
@@ -206,6 +207,12 @@ class Database {
     return _sqlite
         .executeNonSelect(_db, preparedStatements['CREATETOUCHSITE'],
             params: [site], batchID: null)
+        .then((result) => result[1]);
+  }
+
+  Future<int> DeleteTouchSite(String kind) {
+    return _sqlite
+        .executeNonSelect(_db, preparedStatements['DELETETOUCHSITE'], params: [kind])
         .then((result) => result[1]);
   }
 }

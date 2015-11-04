@@ -15,6 +15,8 @@ initManageFunction() {
   querySelector('#delete_branch_btn').onClick.listen(onDeleteBranchBtnClick);
   querySelector('#create_kind_btn').onClick.listen(onCreateKindBtnClick);
   querySelector('#delete_kind_btn').onClick.listen(onDeleteKindBtnClick);
+  querySelector('#create_touch_site_btn').onClick.listen(OnCreateTouchSiteBtnClick);
+  querySelector('#delete_touch_site_btn').onClick.listen(OnDeleteTouchSiteBtnClick);
 
   resetAllBranchSelect();
   resetAllKindSelect();
@@ -38,6 +40,16 @@ void insertCreateKindItem(String kind, String ua) {
   var request = HttpRequest.getString(url).then((output) {
     querySelector('#create_kind_msg').text = kind + " is created.";
     resetAllKindSelect();
+  }).catchError((Error error) {
+    querySelector('#create_kind_msg').text = "Already exist.";
+  });
+}
+
+void insertTouchSiteItem(String site) {
+  var url = URI_CREATE_TOUCH_SITE + "?site=" + site;
+  var request = HttpRequest.getString(url).then((output) {
+    querySelector('#create_touch_site_msg').text = site + " is created.";
+    resetAllTouchSiteSelect();
   }).catchError((Error error) {
     querySelector('#create_kind_msg').text = "Already exist.";
   });
@@ -83,6 +95,26 @@ void onDeleteKindBtnClick(e) {
   var url = URI_DELETE_KIND + "?kind=" + delete_kind;
   var request = HttpRequest.getString(url).then((output) {
     resetAllKindSelect();
+  });
+}
+
+void OnCreateTouchSiteBtnClick(e) {
+  var ua = querySelector('#create_touch_site_input');
+  if (ua.value.isEmpty) {
+    return;
+  }
+  insertTouchSiteItem(ua.value.toString().trim());
+}
+
+void OnDeleteTouchSiteBtnClick(e) {
+  SelectElement status = querySelector('#touch_site_select');
+  String delete_kind = status.options[status.selectedIndex].value;
+  bool confirm = window.confirm("Are you sure to delete " + delete_kind + "?");
+  if (!confirm) return;
+
+  var url = URI_DELETE_TOUCH_SITE + "?site =" + delete_kind;
+  var request = HttpRequest.getString(url).then((output) {
+    resetAllTouchSiteSelect();
   });
 }
 
@@ -173,6 +205,9 @@ resetOverrideCheck(List branch_list) {
 }
 
 void resetAllTouchSiteSelect() {
+  var select = querySelector('#touch_site_select');
+  select.children.clear();
+
   var request = HttpRequest.getString(URI_GET_ALL_TOUCH_SITES).then((output) {
     List<String> decoded = JSON.decode(output);
 

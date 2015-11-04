@@ -119,6 +119,12 @@ Future<shelf.Response> _jsonRequest(shelf.Request request) {
     return controller.SelectTouchSites().then((ret){
       return new Future.value(new shelf.Response.ok(ret.toString()));
     });
+  } else if (query == "/DeleteTouchSite") {
+    var kind = request.url.queryParameters["site"];
+    return controller.DeleteTouchSite(kind).then((ret){
+      return new Future.value(new shelf.Response.ok(ret.toString()));
+    });
+    return new Future.value(new shelf.Response.ok("missing param. http://localhost:8088/DeleteTouchSite?site=youku.com"));
   } else {
     final String resultPath =
       request.url.toString() == '/' ? '/index.html' : request.url.toString();

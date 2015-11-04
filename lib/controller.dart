@@ -280,3 +280,16 @@ Future<int> InsertTouchSite(String site) {
   print("Return NULL ERROR.");
   return new Future.value(-1);
 }
+
+Future<int> DeleteTouchSite(String site) {
+  String dbPath = './touch_site_table.db';
+  File dbFile = new File(dbPath);
+  if (dbFile.existsSync()) {
+    Database database = new Database(1);
+    return database
+        .open(dbPath, create: true)
+        .then((_) => database.DeleteTouchSite(site));
+  }
+  print("ERROR deleteing site.");
+  return new Future.value(-1);
+}
