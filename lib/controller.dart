@@ -235,6 +235,31 @@ Future<String> SelectTouchSites() {
   return new Future.value();
 }
 
+Future<Map<String, String>> SelectTouchSitesAsMap() {
+  String dbPath = './touch_site_table.db';
+  File dbFile = new File(dbPath);
+  if (dbFile.existsSync()) {
+    Database database = new Database(1);
+    return database
+        .open(dbPath, create: true)
+        .then((_) => database.getTouchSites())
+        .then((sites) {
+      return new Future.value(_GenerateMapTouch(sites));
+    });
+  }
+  print("Return NULL ERROR.");
+  return new Future.value();
+}
+
+// Hack to make iterable :(
+Map<String, String> _GenerateMapTouch(List touch_sites) {
+  Map<String, String> ua_map = {};
+  touch_sites.forEach((single) {
+    ua_map[single[0]] = single[0];
+  });
+  return ua_map;
+}
+
 String _GenearteJsonString(List sites) {
   List<String> tmp = [];
   sites.forEach((site) {

@@ -104,25 +104,34 @@ Future<String> JsonQueryWith(String ua) {
   return new Future.value();
 }
 
+/*
+    return controller.SelectTouchSites().then((ret){
+      return new Future.value(new shelf.Response.ok(ret.toString()));
+    });
+    */
+
 Future<String> _GenearteJsonFromDatabase(List sites) {
   return controller.SelectAllKindsAsMap().then((map) {
-    Map<String, Object> sites_map = {};
-    map.forEach((k, v) {
-      List<String> tmp = [];
-      // Select by the index of UA_MAP.
-      sites.where((i) => (i[1] == k)).toList().forEach((single_site) {
-        // No better way instead of using []?.
-        if (single_site[2] == 0) // Only for status working.
-            tmp.add(single_site[0]);
+    return controller.SelectTouchSitesAsMap().then((touch_sites) {
+      Map<String, Object> sites_map = {};
+      map.forEach((k, v) {
+        List<String> tmp = [];
+        // Select by the index of UA_MAP.
+        sites.where((i) => (i[1] == k)).toList().forEach((single_site) {
+          // No better way instead of using []?.
+          if (single_site[2] == 0) // Only for status working.
+              tmp.add(single_site[0]);
+        });
+        sites_map[k] = tmp;
       });
-      sites_map[k] = tmp;
+      Map formData = {
+        "version": "1.1",
+        "keys": map.keys.toList(),
+        "touch_on": touch_sites.keys.toList(),
+        "uas": map,
+        "sites": sites_map
+      };
+      return new JsonEncoder.withIndent('    ').convert(formData);
     });
-    Map formData = {
-      "version": "1.1",
-      "keys": map.keys.toList(),
-      "uas": map,
-      "sites": sites_map
-    };
-    return new JsonEncoder.withIndent('    ').convert(formData);
   });
 }
