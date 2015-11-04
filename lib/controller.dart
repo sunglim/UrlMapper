@@ -267,3 +267,16 @@ String _GenearteJsonString(List sites) {
   });
   return JSON.encode(tmp);
 }
+
+Future<int> InsertTouchSite(String site) {
+  String dbPath = './touch_site_table.db';
+  File dbFile = new File(dbPath);
+  if (dbFile.existsSync()) {
+    Database database = new Database(1);
+    return database
+        .open(dbPath, create: true)
+        .then((_) => database.createTouchSite(site));
+  }
+  print("Return NULL ERROR.");
+  return new Future.value(-1);
+}

@@ -91,6 +91,14 @@ Future<shelf.Response> _jsonRequest(shelf.Request request) {
       });
     }
     return new Future.value(new shelf.Response.ok("missing param. http://localhost:8088/CreateKind?kind=weboslite&ua=myua"));
+  } else if (query == "/CreateTouchSite") {
+    var kind = request.url.queryParameters["site"];
+    if (kind != null) {
+      return controller.InsertTouchSite(kind).then((ret){
+        return new Future.value(new shelf.Response.ok(ret.toString()));
+      });
+    }
+    return new Future.value(new shelf.Response.ok("missing param. http://localhost:8088/CreateTouchSite?site=youku.com"));
   } else if (query == "/GetAllKinds") {
     return controller.SelectAllKinds().then((ret){
       return new Future.value(new shelf.Response.ok(ret.toString()));
