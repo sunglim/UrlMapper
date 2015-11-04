@@ -112,7 +112,7 @@ void OnDeleteTouchSiteBtnClick(e) {
   bool confirm = window.confirm("Are you sure to delete " + delete_kind + "?");
   if (!confirm) return;
 
-  var url = URI_DELETE_TOUCH_SITE + "?site =" + delete_kind;
+  var url = URI_DELETE_TOUCH_SITE + "?site=" + delete_kind;
   var request = HttpRequest.getString(url).then((output) {
     resetAllTouchSiteSelect();
   });
